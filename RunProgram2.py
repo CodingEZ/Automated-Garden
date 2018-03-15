@@ -3,9 +3,8 @@
 ####move stpper motor (trial & error) to make it to exactly the top left corner
 ####find the pixel size and stepper motor turn length ratio.
 
-from enum import Enum
 import time
-import serial
+#import serial
 import cv2
 import ImageEdit5 as ImageEdit          # version 4 contains polygon detection
 import ImageGrab
