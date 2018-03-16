@@ -12,20 +12,40 @@ in the future a neural network to identify plants regardless of size.
 ## Requirements
 1. Python 3.x
 2. OpenCV 3.4
-3. matplotlib (if you would like to display results, mostly for testing)
-4. serial (if you want to communicate with an Arduino, will add extension later)
+3. numpy (latest available version preferred)
+
+Optional:
+4. matplotlib (if you would like to display results, mostly for testing)
+5. serial (if you want to communicate with an Arduino, will add extension later)
 
 ## How to use this repo
-control = Project()
+detect = ImageDetection()
 The project overall has a class from which you call methods from other classes.
 
-control.find_plant()
+detect.image_grab()
+This function must be called in order to initialize the image. Can use a given
+image in the folder Capture or can take an image with a given camera.
+
+detect.find_plant()
 This function finds the plant, which is (for now) the object that has the 
 largest size after thresholding and normalizing. Some of the thresholds have 
 defaults, but others are currently fixed.
 
-control.find_weeds()
+detect.find_weeds()
 This function labels all other regions as weeds.
 
-control.draw_weeds()
-Using matplot lib, one can draw the images created and outline the contour of all weeds.
+detect.draw_weeds()
+Using matplotlib, one can outline the contour of all weeds. 
+The color is currently fixed to magenta.
+
+detect.draw_plant()
+Using matplotlib, one can outline the contour of the plant detected. 
+The color is currently fixed to green.
+
+detect.display_drawings()
+Displays the original image, the image after the initial threshold, and the 
+original image with all outlines drawn.
+
+## Future Edits
+I will later add arduino communication capabilities to allow one to implement 
+the weed detection in an Arduino garden.
