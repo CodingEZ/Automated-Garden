@@ -2,7 +2,7 @@ import time
 import ImageDetection
 import ArduinoControl
 
-imgName = None
+imgName = '1521224317.jpg'
 cameraNum = 0    # built-in cameraNum = 0
                     # attached cameraNum = 1
 
