@@ -10,13 +10,17 @@ that it does not implement any kind of machine learning. I aim to add
 in the future a neural network to identify plants regardless of size.
 
 ## Requirements
+The project was run on a Windows computer, on which OpenCV 3.4 was easy to 
+install. However, as long as one could install OpenCV, this project can be 
+run on other operating systems.
+
 1. Python 3.x
 2. OpenCV 3.4
 3. numpy (latest available version preferred)
-
-Optional:
-4. matplotlib (if you would like to display results, mostly for testing)
-5. serial (if you want to communicate with an Arduino, will add extension later)
+4. (Optional) matplotlib (if you would like to display results, mostly for 
+testing)
+5. (Future) serial (if you want to communicate with an Arduino, will add 
+extension later)
 
 ## How to use this repo
 detect = ImageDetection()
