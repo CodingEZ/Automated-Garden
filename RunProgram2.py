@@ -7,7 +7,7 @@ import time
 #import serial
 import cv2
 import ImageEdit5 as ImageEdit          # version 4 contains polygon detection
-import ImageGrab
+import ImageGrab2 as ImageGrab
 import GripEdit3 as GripEdit            # version 3 only
 from matplotlib import pyplot as plt
 
@@ -95,9 +95,9 @@ class Project():
         self.lastWater = time.time()
 
     def image_grab(self):
-        #img = ImageGrab.grab(1)     # built-in camera number = 0
+        img = ImageGrab.grab(0)     # built-in camera number = 0
                                     # attached camera number = 1
-        img = cv2.imread('Capture\\1521224317.jpg', 1)
+        #img = cv2.imread('Capture\\1521224317.jpg', 1)
         return img
 
     def image_plot(self, imgNames):
