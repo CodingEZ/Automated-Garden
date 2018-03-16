@@ -150,14 +150,14 @@ class Editor():
                     if region[y, x]:
                         self.img[y, x] = self.black
 
-    def outline(self, img, largeRegions, needToCopy=False):
+    def outline(self, img, largeRegions, color, needToCopy=False):
         if needToCopy:
             img = copy.deepcopy(img)
             
         radius = 10
         for index in range(len(largeRegions)):
             contour = cv2.findContours(largeRegions[index], 1, 2)[1][0]
-            cv2.drawContours(img, [contour], -1, (255, 0, 255), 2)
+            cv2.drawContours(img, [contour], -1, color, 2)
             
         if needToCopy:
             return img

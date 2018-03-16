@@ -4,11 +4,14 @@ class ArduinoControl():
 
     def __init__(self):
         '''Calibration and set-up'''
+        self.plantLocations = [(), (), (), ()]
+        self.numPlants = len(self.plantLocations)
+        self.lastWater = None
         
         self.unit_x = 180              # 1 x-stepper motor turn = unit_x pixels
         self.unit_y = 180              # same for y
-        self.screen_x = ?            # stepper motor turn per 1 screen width
-        self.screen_y = ?            # vice versa
+        #self.screen_x = ?            # stepper motor turn per 1 screen width
+        #self.screen_y = ?            # vice versa
 
         self.arduino = serial.Serial('COM3', 9600, timeout=.1)       # set up the serial port
         time.sleep(3)                           # allow Arduino to reset

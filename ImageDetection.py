@@ -1,23 +1,15 @@
 import numpy as np
 import cv2
 import ImageEdit6 as ImageEdit          # version 4 contains polygon detection
-import ImageGrab2 as ImageGrab
 import GripEdit3 as GripEdit            # version 3 only
 import ImageHelp
 
 class Detector():
 
-    def __init__(self):
-        '''Calibration and set-up'''
-        self.plantLocations = [(), (), (), ()]
-        self.numPlants = len(self.plantLocations)
-        self.lastWater = None
-        self.img = self.image_grab()
-        self.imgEdit = GripEdit.filter(self.img)
-        self.editor = ImageEdit.Editor(self.imgEdit)
-        self.thresholdBrightness = .4       # .6 is the default value
+    def __init__(self, thresholdBrightness=.6, weedFactor=1/100):
+        self.thresholdBrightness = thresholdBrightness
+        self.weedFactor = weedFactor   # size of weeds in comparison to plant
         self.weeds = []
-        self.weedFactor = 1/100   # size of weeds in comparison to plant
 
         # Initialized later
         self.regions = None
@@ -26,11 +18,20 @@ class Detector():
         self.finalImg = None
         self.largeRegions = None
 
-    def image_grab(self):
-        img = ImageGrab.grab(0)     # built-in camera number = 0
-                                    # attached camera number = 1
-        #img = cv2.imread('Capture\\1521224317.jpg', 1)
-        return img
+    def image_grab(self, name, cameraNum):
+        import time
+        '''Grabs an image. Uses an existing image if name is given. Otherwise takes an
+            image using a given camera.'''
+        if name == None:
+            cap = cv2.VideoCapture(cameraNum)
+            img = cap.read()[1]
+            cv2.imwrite('Capture\\' + str(int(time.time())) + '.jpg', img)
+            cap.release()   # When everything done, release the capture
+        else:
+            img = cv2.imread('Capture\\' + name, 1)
+        self.img = img
+        self.imgEdit = GripEdit.filter(self.img)
+        self.editor = ImageEdit.Editor(self.imgEdit)
 
     def find_plant(self):
         '''Finds the largest object and designates as the plant.
@@ -67,20 +68,22 @@ class Detector():
         print("Locations of weeds:", self.weeds)
 
     def draw_plant(self):
+        color = (0, 255, 0)
         '''Outlines the contour of the plant.'''
         if ImageHelp.equalArray(self.finalImg, None):
-            self.finalImg = self.editor.outline(self.img, [self.plant],
+            self.finalImg = self.editor.outline(self.img, [self.plant], color,
                                                 needToCopy=True)
         else:
-            self.editor.outline(self.finalImg, [self.plant])
+            self.editor.outline(self.finalImg, [self.plant], color)
 
     def draw_weeds(self):
         '''Outlines the contour of each weed.'''
+        color = (255, 0, 255)
         if ImageHelp.equalArray(self.finalImg, None):
-            self.finalImg = self.editor.outline(self.img, self.largeRegions,
+            self.finalImg = self.editor.outline(self.img, self.largeRegions, color,
                                                 needToCopy=True)
         else:
-            self.editor.outline(self.finalImg, self.largeRegions)
+            self.editor.outline(self.finalImg, self.largeRegions, color)
 
     def display_drawings(self):
         '''Displays a list of images.'''
