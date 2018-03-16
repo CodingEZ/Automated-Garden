@@ -49,7 +49,7 @@ class Editor():
         if M != None:
             cX = int(M["m10"] / M["m00"])
             cY = int(M["m01"] / M["m00"])
-            return (cX, cY)
+            return (cY, cX)
         else:
             return None
 
@@ -126,7 +126,7 @@ class Editor():
         pointsList = [None] * len(regions)
         counter = 0
         for region in regions:
-            pointsList[counter] = self.find_next_location(region)
+            pointsList[counter] = self.find_centroid(region)
             counter += 1
         return pointsList
 
@@ -155,6 +155,6 @@ class Editor():
         radius = 10
         for index in range(len(largeRegions)):
             contour = cv2.findContours(largeRegions[index], 1, 2)[1][0]
-            cv2.drawContours(img, [contour], -1, (0, 255, 0), 2)
+            cv2.drawContours(img, [contour], -1, (255, 0, 255), 2)
         return img
                 

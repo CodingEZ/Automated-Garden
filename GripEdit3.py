@@ -12,8 +12,8 @@ class GripPipeline:
         """initializes all values to presets or None if need to be set
         """
 
-        self.__hsv_threshold_hue = [25.0, 180.0]
-        self.__hsv_threshold_saturation = [8.0, 255.0]
+        self.__hsv_threshold_hue = [20.0, 180.0]
+        self.__hsv_threshold_saturation = [6.0, 255.0]
         self.__hsv_threshold_value = [0.0, 255.0]
 
         self.hsv_threshold_output = None

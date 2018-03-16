@@ -30,7 +30,7 @@ class Project():
         self.img = self.image_grab()
         self.imgEdit = GripEdit.filter(self.img)
         self.editor = ImageEdit.Editor(self.imgEdit)
-        self.thresholdBrightness = .2       # .6 is the default value
+        self.thresholdBrightness = .4       # .6 is the default value
         self.weeds = []
         self.weedFactor = 1/100   # size of weeds in comparison to plant
 
@@ -95,9 +95,9 @@ class Project():
         self.lastWater = time.time()
 
     def image_grab(self):
-        #img = ImageGrab.grab(0)     # built-in camera number = 0
+        #img = ImageGrab.grab(1)     # built-in camera number = 0
                                     # attached camera number = 1
-        img = cv2.imread('Capture\\1520992405.jpg', 1)
+        img = cv2.imread('Capture\\1521224317.jpg', 1)
         return img
 
     def image_plot(self, imgNames):
