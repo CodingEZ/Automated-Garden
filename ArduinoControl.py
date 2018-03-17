@@ -57,9 +57,12 @@ class ArduinoControl():
 
     def arduino_water(self, timeLength=10):
         '''Note: time length is in seconds.'''
+        '''
         waterStart = time.time()
         while time.time() < waterStart + timeLength:
             self.arduino.write(b'2')
+        '''
+        # send water command
         self.wait()
 
     def water_cycle(self):
@@ -69,12 +72,5 @@ class ArduinoControl():
             self.arduino_water()
         self.lastWater = time.time()
 
-'''
-while True:
-    if (control.lastWater == None) or (time.time() - control.lastWater > 300):
-        control.water_cycle()
-    control.find_weeds()
-    control.kill_weeds()
-
-if time.time() - control.lastWater < 300:
-'''
+    def kill_weed(self, location):
+        self.arduino_move(location)

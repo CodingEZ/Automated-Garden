@@ -21,3 +21,16 @@ detect.draw_weeds()
 detect.draw_plant()
 detect.display_drawings()
 
+'''
+while True:
+    if (control.lastWater == None) or (time.time() - control.lastWater > 300):
+        control.water_cycle()
+    detect = ImageDetection.Detector(thresholdBrightness=.4)
+    detect.image_grab(imgName, cameraNum)
+    detect.find_plant()
+    detect.find_weeds()
+    for location in detect.weeds:
+        control.kill_weed(location)
+
+if time.time() - control.lastWater < 300:
+'''
