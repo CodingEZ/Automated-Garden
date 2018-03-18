@@ -134,11 +134,10 @@ class Editor():
         newImage = copy.deepcopy(self.blackImg)
         for y in range(self.height):
             for x in range(self.width):
-                boolArray = [None] * len(regions)
                 for index in range(len(regions)):
-                    boolArray[index] = regions[index][y, x]
-                if self.white in boolArray:
-                    newImage[y, x] = self.white
+                    if regions[index][y, x] == self.white:
+                        newImage[y, x] = self.white
+                        break
         return newImage
 
     def blacken_regions(self, regions):

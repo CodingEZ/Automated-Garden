@@ -3,6 +3,9 @@ import ImageDetection
 import ArduinoControl
 
 imgName = '1521224317.jpg'
+#imgName = '1516378704.jpg'
+#imgName = '1520808085.jpg'
+#imgName = '5.jpg'
 cameraNum = 0    # built-in cameraNum = 0
                     # attached cameraNum = 1
 
@@ -10,7 +13,8 @@ cameraNum = 0    # built-in cameraNum = 0
 #control.wait()           wait for arduino
 
 start = time.time()
-detect = ImageDetection.Detector(thresholdBrightness=.4)
+detect = ImageDetection.Detector(thresholdBrightness=.3,
+                                 weedFactor=1/50)
 detect.image_grab(imgName, cameraNum)
 detect.find_plant()
 detect.find_weeds()

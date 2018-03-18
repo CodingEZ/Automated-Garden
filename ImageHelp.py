@@ -22,11 +22,13 @@ def equalArray(array1, array2):
         return True
 
 def display(imgNames, imgs):
-    num = len(imgNames)
-    plt.figure(num=1, figsize=(4*num, 4))
-    for i in range(num):
-        plt.subplot(1,num,i+1)
-        plt.imshow(imgs[i],'gray')
+    numImgs = len(imgNames)
+    #plt.figure(num=1, figsize=(4*numImgs, 4))
+    plt.figure(num=1, figsize=(2*numImgs, 4*((numImgs+1)//2)))
+    for i in range(numImgs):
+        #plt.subplot(1,numImgs,i+1)
+        plt.subplot((numImgs+1)//2, 2, i+1)
+        plt.imshow(imgs[i], 'gray')
         plt.title(imgNames[i])
     plt.show()
 

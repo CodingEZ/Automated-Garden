@@ -87,6 +87,7 @@ class Detector():
 
     def display_drawings(self):
         '''Displays a list of images.'''
-        imgNames = ['self.img', 'self.imgEdit', 'self.finalImg']
-        imgs = [self.img, self.imgEdit, self.finalImg]
+        self.imgThresh = self.editor.combine_regions(self.regions)
+        imgNames = ['self.img', 'self.imgEdit', 'self.imgThresh', 'self.finalImg']
+        imgs = [self.img, self.imgEdit, self.imgThresh, self.finalImg]
         ImageHelp.display(imgNames, imgs)
