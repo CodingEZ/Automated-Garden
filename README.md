@@ -47,8 +47,9 @@ Using matplotlib, one can outline the contour of the plant detected.
 The color is currently fixed to green.
 
 detect.display_drawings()
-Displays the original image, the image after the initial threshold, and the 
-original image with all outlines drawn.
+Displays the original image, the image after the initial threshold, the image 
+the second threshold (removes regions that are too small) and the original 
+image with all outlines drawn.
 
 ## Future Edits
 I will later add arduino communication capabilities to allow one to implement 
