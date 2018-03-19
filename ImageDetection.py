@@ -36,7 +36,8 @@ class Detector():
     def find_plant(self):
         '''Finds the largest object and designates as the plant.
             Currently the most inefficient code.'''
-        maxPixel = self.editor.find_max()
+        #maxPixel = self.editor.find_max()
+        maxPixel = 255
         while True:
             locations = self.editor.max_locations(maxPixel, self.thresholdBrightness)
             self.regions = self.editor.get_all_regions(locations)
