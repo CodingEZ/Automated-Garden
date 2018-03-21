@@ -18,6 +18,9 @@ class Detector():
         self.finalImg = None
         self.largeRegions = None
 
+        self.drawImgs = []
+        self.drawNames = []
+
     def image_grab(self, name, cameraNum):
         import time
         '''Grabs an image. Uses an existing image if name is given. Otherwise takes an
@@ -30,8 +33,8 @@ class Detector():
         else:
             img = cv2.imread('Capture\\' + name, 1)
         self.img = img
-        self.imgEdit = GripEdit.filter(self.img)
-        self.editor = ImageEdit.Editor(self.imgEdit)
+        self.thresh1 = GripEdit.filter(self.img)
+        self.editor = ImageEdit.Editor(self.thresh1)
 
     def find_plant(self):
         '''Finds the largest object and designates as the plant.
@@ -68,7 +71,7 @@ class Detector():
         self.largeRegions.pop(plantIndex)
         print("Locations of weeds:", self.weeds)
 
-    def draw_plant(self):
+    def outline_plant(self):
         color = (0, 255, 0)
         '''Outlines the contour of the plant.'''
         if ImageHelp.equalArray(self.finalImg, None):
@@ -77,7 +80,7 @@ class Detector():
         else:
             self.editor.outline(self.finalImg, [self.plant], color)
 
-    def draw_weeds(self):
+    def outline_weeds(self):
         '''Outlines the contour of each weed.'''
         color = (255, 0, 255)
         if ImageHelp.equalArray(self.finalImg, None):
@@ -86,9 +89,21 @@ class Detector():
         else:
             self.editor.outline(self.finalImg, self.largeRegions, color)
 
+    def draw_outlines(self):
+        self.drawImgs.append(self.finalImg)
+        self.drawNames.append('self.finalImg')
+
+    def draw_first_threshold(self):
+        self.drawImgs.append(self.thresh1)
+        self.drawNames.append('self.thresh1')
+
+    def draw_second_threshold(self):
+        self.thresh2 = self.editor.combine_regions(self.regions)
+        self.drawImgs.append(self.thresh2)
+        self.drawNames.append('self.thresh2')
+
     def display_drawings(self):
         '''Displays a list of images.'''
-        self.imgThresh = self.editor.combine_regions(self.regions)
-        imgNames = ['self.img', 'self.imgEdit', 'self.imgThresh', 'self.finalImg']
-        imgs = [self.img, self.imgEdit, self.imgThresh, self.finalImg]
+        imgs = [self.img] + self.drawImgs
+        imgNames = ['self.img'] + self.drawNames
         ImageHelp.display(imgNames, imgs)

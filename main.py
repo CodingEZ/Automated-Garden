@@ -14,15 +14,18 @@ cameraNum = 0    # built-in cameraNum = 0
 
 start = time.time()
 detect = ImageDetection.Detector(thresholdBrightness=.35,
-                                 weedFactor=1/20)
+                                 weedFactor=1/16)
 detect.image_grab(imgName, cameraNum)
 detect.find_plant()
 detect.find_weeds()
 stop = time.time()
 print("Algorithm runtime for program:", stop - start)
 
-detect.draw_weeds()
-detect.draw_plant()
+detect.outline_weeds()
+detect.outline_plant()
+detect.draw_outlines()
+detect.draw_first_threshold()
+detect.draw_second_threshold()
 detect.display_drawings()
 
 '''
