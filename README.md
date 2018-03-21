@@ -38,18 +38,29 @@ defaults, but others are currently fixed.
 detect.find_weeds()
 This function labels all other regions as weeds.
 
-detect.draw_weeds()
-Using matplotlib, one can outline the contour of all weeds. 
+detect.outline_weeds()
+One can outline the contour of all weeds. 
 The color is currently fixed to magenta.
 
-detect.draw_plant()
-Using matplotlib, one can outline the contour of the plant detected. 
+detect.outline_plant()
+One can outline the contour of the plant detected. 
 The color is currently fixed to green.
 
+detect.draw_outlines()
+Adds the original image with added outlines to images to be drawn. It currently 
+produces an error if no outlines are made.
+
+detect.draw_first_threshold()
+Adds the first threshold to images that should be drawn. The first threshold is
+only an HSV threshold.
+
+detect.draw_second_threshold()
+Adds the second threshold to images that should be drawn. The second threshold is
+based on size and brightness after normalization.
+
 detect.display_drawings()
-Displays the original image, the image after the initial threshold, the image 
-the second threshold (removes regions that are too small) and the original 
-image with all outlines drawn.
+Using matplotlib, this displays the original image along with any drawn images
+(based on draw_x calls).
 
 ## Future Edits
 I will later add arduino communication capabilities to allow one to implement 
