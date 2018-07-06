@@ -65,3 +65,5 @@ Using matplotlib, this displays the original image along with any drawn images
 ## Future Edits
 I will later add arduino communication capabilities to allow one to implement 
 the weed detection in an Arduino garden.
+
+I am currently working on an interface for use on a Raspberry Pi.
