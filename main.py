@@ -6,8 +6,7 @@ imgName = '1521224317.jpg'
 #imgName = '1516378704.jpg'
 #imgName = '1520808085.jpg'
 #imgName = '1.jpg'
-cameraNum = 0    # built-in cameraNum = 0
-                    # attached cameraNum = 1
+cameraNum = 0    # built-in cameraNum = 0, attached cameraNum = 1
 
 #control = ArduinoControl.ArduinoControl()
 #control.wait()           wait for arduino
