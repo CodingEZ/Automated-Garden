@@ -1,9 +1,13 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QInputDialog, QLineEdit     # for input boxes
 from PyQt5.QtCore import pyqtSlot
-import Background
-import Text
-import ButtonClick
 import sys
+
+import Background
+import Display
+import Label
+import Button
+
 
 class Window(QWidget):
 
@@ -15,77 +19,174 @@ class Window(QWidget):
         self.width = self.left + width
         self.height = self.top + height
         self.background = 'Images/back.jpg'
-        self.boundStyle = "QLabel { background-color : #FFFFFF; }"
-        self.titleStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 14pt; }"
-        self.normalStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 11pt; }"
-        self.logStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 9pt; }"
+        self.largeStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 14pt; }"
+        self.mediumStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 11pt; }"
+        self.smallStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 9pt; }"
 
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
         Background.showBackground(self)
 
-        self.buttons = []
-        self.labels = []
+        self.aboutText = None
+        try:
+            self.aboutText = open('Texts/About.txt', 'r').read()
+        except OSError:
+            Display.displayWarning(self, 'Failed to load "Texts/About.txt" file. Was it corrupted?')
+        except:
+            Display.displayWarning(self, 'Unexpected error.')
 
-        self.initStart()  # begin application in the start menu
+        self.waterInterval = 10  # minutes
+        self.minInterval = 10
+        self.maxInterval = 20
+
+        self.buttons = []
+        self.buttonDict = dict()
+        self.initButtons()
+
+        self.labels = []
+        self.labelDict = dict()
+        self.initLabels()
+
+        self.initStartMenu()  # begin application in the start menu
         self.show()
+        
+    def initButtons(self):
+        
+        startMenuButtonInfo = {
+            'Commands': ['Go to Commands Menu', self.initCommandsMenu],
+            'Settings': ['Go to Settings Menu', self.onClickSettings],
+            'About': ['Information about this software', self.initAboutMenu],
+            'Quit': ['Exit the Application', onClickQuit]
+        }
+        commandsMenuButtonInfo = {
+            'Water': ['Goes to the watering menu', self.initWaterMenu],
+            'Detect Weeds': ['Sends the command to detect weeds', self.onClickDetectWeeds],
+            'Pesticide': ['Sends the command to apply pesticide', self.onClickPesticide],
+            'Back to Start': ['Returns to the Start Menu', self.initStartMenu],
+        }
+        aboutMenuButtonInfo = {
+            'Back to Start': ['Returns to the Start Menu', self.initStartMenu],
+        }
+        waterMenuButtonInfo = {
+            'Start Watering': ['The default settings are tailored \n' +
+                               'toward outdoor noontime lighting. \n' +
+                               'Try out some thresholds.', self.initWaterMenu],
+            'Cancel': ['Go to Commands Menu', self.initCommandsMenu]
+        }
+        intervalButtonInfo = {
+            'Change Water Interval': ['Change the interval at which \n' +
+                                      'this device waters plants.', self.onClickChangeWaterInterval]
+        }
 
-    def initStart(self):
-        self.buttons = []
-        buttonInfo = {'Commands' : ['Go to Commands Menu', self.onClickCommands],
-                      'Settings' : ['Go to Settings Menu', self.onClickSettings],
-                      'Quit' : ['Exit the Application', onClickQuit]}
+        self.buttonDict['startMenu'] = Button.createButtons(self, startMenuButtonInfo, 1 / 2, 1 / 2)
+        self.buttonDict['commandsMenu'] = Button.createButtons(self, commandsMenuButtonInfo, 13 / 16, 1 / 2)
+        self.buttonDict['settingsMenu'] = None
+        self.buttonDict['aboutMenu'] = Button.createButtons(self, aboutMenuButtonInfo, 1 / 2, 2 / 3)
+        self.buttonDict['waterMenu'] = (Button.createButtons(self, waterMenuButtonInfo, 1 / 2, 1 / 4) +
+                                            Button.createButtons(self, intervalButtonInfo, 2 / 3, 1 / 2)
+                                        )
 
-        self.labels = []
-        self.labels += Text.showText(self, 1 / 2, 1 / 3, 3 / 4, 1 / 8, 50, self.boundStyle, self.titleStyle,
-                                     'Sustainable Earth Arduino Garden')
+    def initLabels(self):
 
-        index = 0
-        for name in buttonInfo:
-            newButton = QPushButton(name, self)
-            newButton.setObjectName(name)
-            newButton.setToolTip(buttonInfo[name][0])
-            newButton.move(self.width / 2 - newButton.width() / 2 - 5,
-                           self.height / 2 - (len(buttonInfo) * newButton.height()) / 2
-                           + index * newButton.height())
-            newButton.clicked.connect(buttonInfo[name][1])
-            self.buttons.append(newButton)
-            index += 1
+        self.labelDict['startMenu'] = [Label.showText(self, 1 / 2, 1 / 4, 3 / 4, 1 / 8, 25, self.largeStyle,
+                                            'Sustainable Earth Arduino Garden')
+                                        ]
+        self.labelDict['commandsMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 25, self.largeStyle,
+                                                'Garden Command Center'),
+                                          Label.showText(self, 1 / 3, 1 / 2, 1 / 2, 14 / 25, 25, self.smallStyle,
+                                                'Nothing here yet.')
+                                          ]
+        self.labelDict['settingsMenu'] = None
+        self.labelDict['aboutMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 25, self.largeStyle,
+                                            'About'),
+                                       Label.showText(self, 1 / 2, 1 / 2, 3 / 5, 1 / 3, 25, self.smallStyle,
+                                            self.aboutText)
+                                        ]
+        self.labelDict['waterMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 25, self.largeStyle,
+                                                      'Garden Water Settings'),
+                                        Label.showText(self, 1 / 3, 1 / 2, 1 / 3, 1 / 16, 25, self.smallStyle,
+                                                      'Watering Interval: %d minutes' % self.waterInterval)
+                                        ]
+
+    def initStartMenu(self):
+        # Labels first
+        Label.hideLabels(self.labels)
+        self.labels = self.labelDict['startMenu']
+        Label.showLabels(self.labels)
+
+        # Buttons second
+        Button.hideButtons(self.buttons)
+        self.buttons = self.buttonDict['startMenu']
+        Button.showButtons(self.buttons)
 
     def initCommandsMenu(self):
-        self.buttons = []
-        buttonInfo = {'Instructions' : ['Gives an explanation of what goes on in this menu', onClickQuit],
-                      'Transcribe' : ['Makes a full transcription of audio', onClickQuit],
-                      'Choose File' : ['Choose a video from your computer to transcribe', onClickQuit],
-                      'Choose URL' : ['Choose a video from Youtube to transcribe', onClickQuit],
-                      'Download' : ['Downloads a video from a given Youtube url', onClickQuit],
-                      'Back to Start' : ['Returns to the Start Menu', onClickQuit],
-                      'Quit' : ['Exit the Application', onClickQuit]}
+        # Labels first
+        Label.hideLabels(self.labels)
+        self.labels = self.labelDict['commandsMenu']
+        Label.showLabels(self.labels)
 
-        self.labels = []
+        # Buttons second
+        Button.hideButtons(self.buttons)
+        self.buttons = self.buttonDict['commandsMenu']
+        Button.showButtons(self.buttons)
 
-        index = 0
-        for name in buttonInfo:
-            newButton = QPushButton(name, self)
-            newButton.setObjectName(name)
-            newButton.setToolTip(buttonInfo[name][0])
-            newButton.move(self.width * (3 / 4) - newButton.width() / 2 - 5,
-                           self.height * (3 / 4) - (
-                           len(buttonInfo) * newButton.height()) / 2 + index * newButton.height())
-            newButton.clicked.connect(onClickQuit)
-            self.buttons.append(newButton)
-            index += 1
+    def initSettingsMenu(self):
+        pass
 
-    @pyqtSlot()
-    def onClickCommands(self):
-        ButtonClick.hideButtons(self.buttons)
-        ButtonClick.hideLabels(self.labels)
-        self.initCommandsMenu()
-        ButtonClick.showLabels(self.labels)
-        ButtonClick.showButtons(self.buttons)
+    def initAboutMenu(self):
+        # Labels first
+        Label.hideLabels(self.labels)
+        self.labels = self.labelDict['aboutMenu']
+        Label.showLabels(self.labels)
+
+        # Buttons second
+        Button.hideButtons(self.buttons)
+        self.buttons = self.buttonDict['aboutMenu']
+        Button.showButtons(self.buttons)
+
+    def initWaterMenu(self):
+        # Labels first
+        Label.hideLabels(self.labels)
+        self.labels = self.labelDict['waterMenu']
+        Label.showLabels(self.labels)
+
+        # Buttons
+        Button.hideButtons(self.buttons)
+        self.buttons = self.buttonDict['waterMenu']
+        Button.showButtons(self.buttons)
+
+##############################################################
+    # Clicking Functions
+##############################################################
 
     @pyqtSlot()
     def onClickSettings(self):
+        self.initSettingsMenu()
+
+    @pyqtSlot()
+    def onClickChangeWaterInterval(self):
+        num, okPressed = QInputDialog.getInt(self, "Change Watering Interval",
+                                    "Pick an interval (in minutes) at which the device \n" +
+                                    " will water. The minimum interval is %d minutes, \n" % self.minInterval +
+                                    "and the maximum is %d minutes." % self.maxInterval,
+                                    QLineEdit.Normal, self.waterInterval)
+        if okPressed:
+            if num < self.minInterval:
+                Display.displayWarning(self, 'You cannot water at intervals less than %d minutes!'
+                                       % self.minInterval)
+                return
+            elif num > self.maxInterval:
+                Display.displayWarning(self, 'You cannot water at intervals more than %d minutes!'
+                                       % self.maxInterval)
+                return
+            self.waterInterval = num
+
+    @pyqtSlot()
+    def onClickDetectWeeds(self):
+        pass
+
+    @pyqtSlot()
+    def onClickPesticide(self):
         pass
 
 def onClickQuit():
