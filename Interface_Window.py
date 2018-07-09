@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget         # for creating the window
 from PyQt5.QtWidgets import QInputDialog, QLineEdit     # for input boxes
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot           # for the buttons
 import sys
 import time
 
@@ -17,7 +17,7 @@ class Window(QWidget):
         super().__init__()
         self.app = application
 
-        self.title = 'Speech Practice and Transcription'
+        self.title = 'Sustainable Earth Arduino Garden'
         self.left = 200
         self.top = 100
         self.width = self.left + width
@@ -217,4 +217,3 @@ class Window(QWidget):
     @pyqtSlot()
     def onClickQuit(self):
         sys.exit(self.app.exec_())
-
