@@ -82,7 +82,8 @@ class PolygonConstruct():
                     return (y, x)
         return None
 
-    def mk_lines_and_directions(self, points, insidePoint):
+    @staticmethod
+    def mk_lines_and_directions(points, insidePoint):
         length = len(points)
         lines= []
         directions = []
@@ -104,7 +105,7 @@ class PolygonConstruct():
         '''This function makes a polygon, which represents the area that the plant of interest occupies.'''
         insidePoint = self.get_point_inside_triangle()
         points = self.pointsList[:3]     # take only the first three points        
-        (lines, directions) = self.mk_lines_and_directions(points, insidePoint)
+        (lines, directions) = __class__.mk_lines_and_directions(points, insidePoint)
 
         # ERROR HERE!!!!!!!!!!!!!!!!!!!!!!!11
         consideredPoints = 3
@@ -112,16 +113,16 @@ class PolygonConstruct():
             violatedLines = 0
             lastViolated = None
             for index in range(len(lines)):
-                if not point_inside(self.pointsList[consideredPoints], [lines[index]], [directions[index]]):
+                if not self.point_inside(self.pointsList[consideredPoints], [lines[index]], [directions[index]]):
                     violatedLines += 1
                     lastViolated = index        # remember that the index represents the first point
 
             if violatedLines != 0:
                 for _ in range(violatedLines - 1):
                     points.pop( (lastViolated-violatedLines) % len(points) )
-                points.insert(lastViolated-violatedLines, pointsList[consideredPoints])
+                points.insert(lastViolated-violatedLines, self.pointsList[consideredPoints])
 
-                (lines, directions) = self.mk_lines_and_directions(points, insidePoint)
+                (lines, directions) = __class__.mk_lines_and_directions(points, insidePoint)
                 
             consideredPoints += 1
 

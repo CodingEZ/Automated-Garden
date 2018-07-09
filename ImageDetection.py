@@ -1,8 +1,8 @@
-import numpy as np
 import cv2
-import ImageEdit6 as ImageEdit          # version 4 contains polygon detection
+from ImageEdit6 import ImageEditor          # version 4 contains polygon detection
 import GripEdit3 as GripEdit            # version 3 only
 import ImageHelp
+
 
 class Detector():
 
@@ -34,7 +34,7 @@ class Detector():
             img = cv2.imread('Capture\\' + name, 1)
         self.img = img
         self.thresh1 = GripEdit.filter(self.img)
-        self.editor = ImageEdit.Editor(self.thresh1)
+        self.editor = ImageEditor(self.thresh1)
 
     def find_plant(self):
         '''Finds the largest object and designates as the plant.
@@ -107,3 +107,18 @@ class Detector():
         imgs = [self.img] + self.drawImgs
         imgNames = ['self.img'] + self.drawNames
         ImageHelp.display(imgNames, imgs)
+
+    @staticmethod
+    def detect_all(detector, imgName, cameraNum):
+        Detector.image_grab(detector, imgName, cameraNum)
+        Detector.find_plant(detector)
+        Detector.find_weeds(detector)
+
+    @staticmethod
+    def draw_all(detector):
+        Detector.outline_weeds(detector)
+        Detector.outline_plant(detector)
+        Detector.draw_outlines(detector)
+        Detector.draw_first_threshold(detector)
+        Detector.draw_second_threshold(detector)
+        Detector.display_drawings(detector)

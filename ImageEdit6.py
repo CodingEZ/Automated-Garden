@@ -1,9 +1,8 @@
 import cv2
 import numpy as np
-import math
 import copy
 
-class Editor():
+class ImageEditor():
 
     def __init__(self, img):
         self.img = img
