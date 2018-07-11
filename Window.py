@@ -4,11 +4,12 @@ from PyQt5.QtCore import pyqtSlot           # for the buttons
 import sys
 import time
 
-from ImageDetection import Detector
-import Interface_Background as Background
-import Interface_Display as Display
-import Interface_Label as Label
-import Interface_Button as Button
+from Image.Detection import Detector
+import Background as Background
+import Display as Display
+import Label as Label
+import Button as Button
+import Slider as Slider
 
 
 class Window(QWidget):
@@ -54,27 +55,27 @@ class Window(QWidget):
 
     def initLabels(self):
 
-        self.labelDict['startMenu'] = [Label.showText(self, 1 / 2, 1 / 4, 3 / 4, 1 / 8, 10, self.largeStyle,
-                                            'Sustainable Earth Arduino Garden')
+        self.labelDict['startMenu'] = [Label.showText(self, 1 / 2, 1 / 4, 3 / 4, 1 / 8, 10,
+                                                      self.largeStyle, 'Sustainable Earth Arduino Garden')
                                         ]
-        self.labelDict['commandsMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10, self.largeStyle,
-                                                'Garden Command Center'),
-                                          Label.showText(self, 1 / 3, 1 / 2, 1 / 2, 14 / 25, 10, self.smallStyle,
-                                                'Nothing here yet.')
+        self.labelDict['commandsMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
+                                                         self.largeStyle, 'Garden Command Center'),
+                                          Label.showText(self, 1 / 3, 1 / 2, 1 / 2, 14 / 25, 10,
+                                                         self.smallStyle, 'Nothing here yet.')
                                           ]
-        self.labelDict['settingsMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10, self.largeStyle,
-                                            'General Settings')
+        self.labelDict['settingsMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
+                                                         self.largeStyle, 'General Settings')
                                           ]
-        self.labelDict['aboutMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10, self.largeStyle,
-                                            'About'),
-                                       Label.showText(self, 1 / 2, 1 / 2, 3 / 5, 1 / 3, 10, self.smallStyle,
-                                            self.aboutText)
-                                        ]
-        self.labelDict['waterMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10, self.largeStyle,
-                                                      'Garden Water Settings'),
+        self.labelDict['aboutMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
+                                                      self.largeStyle, 'About'),
+                                       Label.showText(self, 1 / 2, 1 / 2, 3 / 5, 1 / 3, 10,
+                                                      self.smallStyle, self.aboutText)
+                                       ]
+        self.labelDict['waterMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
+                                                      self.largeStyle, 'Garden Water Settings'),
                                         Label.showText(self, 1 / 3, 1 / 2, 1 / 3, 1 / 16, 10, self.smallStyle,
                                                       'Watering Interval: %d minutes' % self.waterInterval)
-                                        ]
+                                       ]
 
     def initButtons(self):
 

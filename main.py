@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication
-from Interface_Window import *
+from Window import *
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)    # initialize the entire application

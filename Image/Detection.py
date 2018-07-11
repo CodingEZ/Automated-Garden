@@ -1,8 +1,8 @@
 import cv2
-from ImageEdit6 import ImageEditor          # version 4 contains polygon detection
-import GripEdit3 as GripEdit            # version 3 only
-import ImageHelp
-
+from Image.Editor import ImageEditor          # version 4 contains polygon detection
+import Image.GripEditor as GripEdit            # version 3 only
+from Image.Helper import *
+from matplotlib import pyplot as plt
 
 class Detector():
 
@@ -21,6 +21,10 @@ class Detector():
         self.drawImgs = []
         self.drawNames = []
 
+        self.img = None
+        self.thresh1 = None
+        self.editor = None
+
     def image_grab(self, name, cameraNum):
         import time
         '''Grabs an image. Uses an existing image if name is given. Otherwise takes an
@@ -28,10 +32,10 @@ class Detector():
         if name == None:
             cap = cv2.VideoCapture(cameraNum)
             img = cap.read()[1]
-            cv2.imwrite('Capture\\' + str(int(time.time())) + '.jpg', img)
+            cv2.imwrite('Camera\\' + str(int(time.time())) + '.jpg', img)
             cap.release()   # When everything done, release the capture
         else:
-            img = cv2.imread('Capture\\' + name, 1)
+            img = cv2.imread('Camera\\' + name, 1)
         self.img = img
         self.thresh1 = GripEdit.filter(self.img)
         self.editor = ImageEditor(self.thresh1)
@@ -62,7 +66,7 @@ class Detector():
         for index in range(len(self.largeRegions)):
             region = self.largeRegions[index]
             newLocation = self.editor.find_centroid(region)
-            if not plantFound and ImageHelp.equalArray(region, self.plant):
+            if not plantFound and equalArray(region, self.plant):
                 print("Location of plant:", newLocation)
                 plantFound = True
                 plantIndex = index
@@ -74,7 +78,7 @@ class Detector():
     def outline_plant(self):
         color = (0, 255, 0)
         '''Outlines the contour of the plant.'''
-        if ImageHelp.equalArray(self.finalImg, None):
+        if equalArray(self.finalImg, None):
             self.finalImg = self.editor.outline(self.img, [self.plant], color,
                                                 needToCopy=True)
         else:
@@ -83,7 +87,7 @@ class Detector():
     def outline_weeds(self):
         '''Outlines the contour of each weed.'''
         color = (255, 0, 255)
-        if ImageHelp.equalArray(self.finalImg, None):
+        if equalArray(self.finalImg, None):
             self.finalImg = self.editor.outline(self.img, self.largeRegions, color,
                                                 needToCopy=True)
         else:
@@ -106,7 +110,22 @@ class Detector():
         '''Displays a list of images.'''
         imgs = [self.img] + self.drawImgs
         imgNames = ['self.img'] + self.drawNames
-        ImageHelp.display(imgNames, imgs)
+
+        numImgs = len(imgNames)
+        # plt.figure(num=1, figsize=(4*numImgs, 4))
+        if numImgs == 1:
+            plt.figure(num=1, figsize=(4, 4))
+            plt.subplot(1, 1, 1)
+            plt.imshow(imgs[0], 'gray')
+            plt.title(imgNames[0])
+        else:
+            plt.figure(num=1, figsize=(2 * numImgs, 4 * ((numImgs + 1) // 2)))
+            for i in range(numImgs):
+                # plt.subplot(1,numImgs,i+1)
+                plt.subplot((numImgs + 1) // 2, 2, i + 1)
+                plt.imshow(imgs[i], 'gray')
+                plt.title(imgNames[i])
+        plt.show()
 
     @staticmethod
     def detect_all(detector, imgName, cameraNum):
