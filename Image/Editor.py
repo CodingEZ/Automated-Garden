@@ -127,15 +127,18 @@ class Editor:
     def get_largest_region(self):
         """Take the largest region with greatest circularity (best leaf shape).
             May result in a tie."""
-
         largestRegion = []
         self.size = self.img.size
         while len(largestRegion) == 0 and self.size > 0:
             self.size //= 2
             largestRegion = self.get_large_regions()
+            if len(largestRegion) == 1:
+                return largestRegion
         while len(largestRegion) != 0:
-            self.size += 100
+            self.size *= 1.1
             largestRegion = self.get_large_regions()
+            if len(largestRegion) == 1:
+                return largestRegion
         while len(largestRegion) == 0:
             self.size -= 1
             largestRegion = self.get_large_regions()

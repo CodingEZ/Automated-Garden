@@ -1,6 +1,7 @@
 import time
 import serial
 
+
 class ArduinoControl():
 
     def __init__(self):
