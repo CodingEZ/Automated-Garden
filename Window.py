@@ -4,7 +4,7 @@ from PyQt5.QtCore import pyqtSlot           # for the buttons
 import sys
 import time
 
-from Image.Detection import Detector
+import Image
 import Background as Background
 import Display as Display
 import Label as Label
@@ -204,9 +204,10 @@ class Window(QWidget):
         cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
 
         start = time.time()
-        detector = Detector(thresholdBrightness=.35, weedFactor=1 / 16)
-        Detector.detect_all(detector, imgName, cameraNum)
-        Detector.draw_all(detector)     # currently thread error if run but not terminated in different thread
+        Image.Controller.drawer.change_default_settings(thresholdBrightness=.35, weedFactor=1 / 16)
+        Image.Controller.image_grab(imgName, cameraNum)
+        Image.Controller.detect_all()
+        # Image.Controller.draw_all()     # currently thread error if run but not terminated in different thread
         stop = time.time()
         print("Algorithm runtime for program:", stop - start)
             # add this to the log, along with start time

@@ -1,7 +1,6 @@
 import cv2
 import numpy
-import math
-from enum import Enum
+
 
 class GripPipeline:
 
@@ -181,10 +180,4 @@ class GripPipeline:
             A numpy.ndarray of the same type as the input.
         """
         return cv2.normalize(input, None, a, b, type)
-
-def filter(img):
-    processClass = GripPipeline()
-    #img = cv2.imread('TestLeaves.jpg', 1)
-    processClass.process(img)
-    return processClass.normalize_output
 
