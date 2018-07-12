@@ -24,7 +24,10 @@ extension later)
 
 ## How to use this repo
 import Image
-Importing the module Image will immediately create three objects, a Drawer, an Editor, and a GripPipeline. The Drawer handles all drawing and outline functions with matplotlib. The Editor creates different thresholds for image processing, and calls the Grippipeline object for filtering.
+Importing the module Image will immediately create three objects, a Drawer, an 
+Editor, and a GripPipeline. The Drawer handles all drawing and outline functions 
+with matplotlib. The Editor creates different thresholds for image processing, 
+and calls the Grippipeline object for filtering.
 
 Image.Controller.image_grab()
 This function must be called in order to initialize the image. Can use a given
