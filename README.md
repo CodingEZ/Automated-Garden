@@ -17,50 +17,55 @@ run on other operating systems.
 1. Python 3.x
 2. OpenCV 3.4
 3. numpy (latest available version preferred)
-4. (Optional) matplotlib (if you would like to display results, mostly for 
-testing)
-5. (Future) serial (if you want to communicate with an Arduino, will add 
+4. PyQt5 (for the interface)
+5. matplotlib (if you would like to display results, mostly for testing)
+6. (Future) serial (if you want to communicate with an Arduino, will add 
 extension later)
 
 ## How to use this repo
-detect = ImageDetection()
-The project overall has a class from which you call methods from other classes.
+import Image
+Importing the module Image will immediately create three objects, a Drawer, an Editor, and a GripPipeline. The Drawer handles all drawing and outline functions with matplotlib. The Editor creates different thresholds for image processing, and calls the Grippipeline object for filtering.
 
-detect.image_grab()
+Image.Controller.image_grab()
 This function must be called in order to initialize the image. Can use a given
 image in the folder Capture or can take an image with a given camera.
 
-detect.find_plant()
+Image.Controller.find_plant()
 This function finds the plant, which is (for now) the object that has the 
 largest size after thresholding and normalizing. Some of the thresholds have 
 defaults, but others are currently fixed.
 
-detect.find_weeds()
+Image.Controller.find_weeds()
 This function labels all other regions as weeds.
 
-detect.outline_weeds()
+Image.Controller.detect_all()
+This function calls find_plant() and find_weed().
+
+Image.Controller.drawer.outline_weeds()
 One can outline the contour of all weeds. 
 The color is currently fixed to magenta.
 
-detect.outline_plant()
+Image.Controller.drawer.outline_plant()
 One can outline the contour of the plant detected. 
 The color is currently fixed to green.
 
-detect.draw_outlines()
+Image.Controller.drawer.add_outlines()
 Adds the original image with added outlines to images to be drawn. It currently 
 produces an error if no outlines are made.
 
-detect.draw_first_threshold()
+Image.Controller.drawer.add_first_threshold()
 Adds the first threshold to images that should be drawn. The first threshold is
 only an HSV threshold.
 
-detect.draw_second_threshold()
+Image.Controller.drawer.add_second_threshold()
 Adds the second threshold to images that should be drawn. The second threshold is
 based on size and brightness after normalization.
 
-detect.display_drawings()
-Using matplotlib, this displays the original image along with any drawn images
-(based on draw_x calls).
+Image.Controller.drawer.display_drawings()
+Using matplotlib, this displays the original image along with any drawn images.
+
+Image.Controller.drawer.draw_all()
+A convenient function that draws all of the possible thresholds.
 
 ## Future Edits
 I will later add arduino communication capabilities to allow one to implement 
