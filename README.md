@@ -25,60 +25,60 @@ extension later)
 
 ## How to use this repo
 
-import Image
+**import Image**
 
 Importing the module Image will immediately create three objects, a Drawer, an 
 Editor, and a GripPipeline. The Drawer handles all drawing and outline functions 
 with matplotlib. The Editor creates different thresholds for image processing, 
 and calls the Grippipeline object for filtering.
 
-Image.Controller.image_grab()
+**Image.Controller.image_grab()**
 
 This function must be called in order to initialize the image. Can use a given
 image in the folder Capture or can take an image with a given camera.
 
-Image.Controller.find_plant()
+**Image.Controller.find_plant()**
 
 This function finds the plant, which is (for now) the object that has the 
 largest size after thresholding and normalizing. Some of the thresholds have 
 defaults, but others are currently fixed.
 
-Image.Controller.find_weeds()
+**Image.Controller.find_weeds()**
 
 This function labels all other regions as weeds.
 
-Image.Controller.detect_all()
+**Image.Controller.detect_all()**
 
 This function calls find_plant() and find_weed().
 
-Image.Controller.drawer.outline_weeds()
+**Image.Controller.drawer.outline_weeds()**
 
 One can outline the contour of all weeds. The color is currently fixed to magenta.
 
-Image.Controller.drawer.outline_plant()
+**Image.Controller.drawer.outline_plant()**
 
 One can outline the contour of the plant detected. The color is currently fixed to green.
 
-Image.Controller.drawer.add_outlines()
+**Image.Controller.drawer.add_outlines()**
 
 Adds the original image with added outlines to images to be drawn. It currently 
 produces an error if no outlines are made.
 
-Image.Controller.drawer.add_first_threshold()
+**Image.Controller.drawer.add_first_threshold()**
 
 Adds the first threshold to images that should be drawn. The first threshold is
 only an HSV threshold.
 
-Image.Controller.drawer.add_second_threshold()
+**Image.Controller.drawer.add_second_threshold()**
 
 Adds the second threshold to images that should be drawn. The second threshold is
 based on size and brightness after normalization.
 
-Image.Controller.drawer.display_drawings()
+**Image.Controller.drawer.display_drawings()**
 
 Using matplotlib, this displays the original image along with any drawn images.
 
-Image.Controller.drawer.draw_all()
+**Image.Controller.drawer.draw_all()**
 
 A convenient function that draws all of the possible thresholds.
 
