@@ -25,7 +25,7 @@ extension later)
 
 ## How to use this repo
 
-**import Image**
+'''import Image'''
 
 Importing the module Image will immediately create three objects, a Drawer, an 
 Editor, and a GripPipeline. The Drawer handles all drawing and outline functions 
