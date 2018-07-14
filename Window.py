@@ -9,7 +9,7 @@ import Label as Label
 
 import sys
 import time
-import Image
+from Image import Controller
 import Arduino
 
 
@@ -210,9 +210,9 @@ class Window(QWidget):
         cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
 
         start = time.time()
-        Image.Controller.drawer.change_default_settings(thresholdBrightness=.35, weedFactor=1 / 16)
-        Image.Controller.image_grab(imgName, cameraNum)
-        Image.Controller.detect_all()
+        Controller.drawer.change_default_settings(thresholdBrightness=.35, weedFactor=1 / 16)
+        Controller.image_grab(imgName, cameraNum)
+        Controller.detect_all()
         # Image.Controller.draw_all()     # currently thread error if run but not terminated in different thread
         stop = time.time()
         print("Algorithm runtime for program:", stop - start)
