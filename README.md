@@ -19,56 +19,55 @@ run on other operating systems.
 2. OpenCV 3.4
 3. numpy (latest available version preferred)
 4. PyQt5 (for the interface)
-5. matplotlib (if you would like to display results, mostly for testing)
-6. (Future) serial (if you want to communicate with an Arduino, will add 
-extension later)
+5. matplotlib (for displaying results, mostly for testing)
+6. serial (if you want to communicate with an Arduino ,working on extension)
 
 ## How to use this repo
 
-```import Image```
-Importing the module Image will immediately create three objects, a Drawer, an 
-Editor, and a GripPipeline. The Drawer handles all drawing and outline functions 
-with matplotlib. The Editor creates different thresholds for image processing, 
-and calls the Grippipeline object for filtering.
+```from Image import Controller```
+Importing the module Controller from Image will immediately create three objects, 
+a Drawer, an Editor, and a GripPipeline. The Drawer handles all drawing and outline 
+functions with matplotlib. The Editor creates different thresholds for image 
+processing, and calls the Grippipeline object for filtering.
 
-```Image.Controller.image_grab()```
+```Controller.image_grab()```
 This function must be called in order to initialize the image. Can use a given
 image in the folder Camera or can take an image with a given camera.
 
-```Image.Controller.find_plant()```
+```Controller.find_plant()```
 
 This function finds the plant, which is (for now) the object that has the 
 largest size after thresholding and normalizing. Some of the thresholds have 
 defaults, but others are currently fixed.
 
-```Image.Controller.find_weeds()```
+```Controller.find_weeds()```
 This function labels all other regions as weeds.
 
-```Image.Controller.detect_all()```
+```Controller.detect_all()```
 This function calls find_plant() and find_weed().
 
-```Image.Controller.drawer.outline_weeds()```
+```Controller.drawer.outline_weeds()```
 One can outline the contour of all weeds. The color is currently fixed to magenta.
 
-```Image.Controller.drawer.outline_plant()```
+```Controller.drawer.outline_plant()```
 One can outline the contour of the plant detected. The color is currently fixed to green.
 
-```Image.Controller.drawer.add_outlines()```
+```Controller.drawer.add_outlines()```
 Adds the original image with added outlines to images to be drawn. It currently 
 produces an error if no outlines are made.
 
-```Image.Controller.drawer.add_first_threshold()```
+```Controller.drawer.add_first_threshold()```
 Adds the first threshold to images that should be drawn. The first threshold is
 only an HSV threshold.
 
-```Image.Controller.drawer.add_second_threshold()```
+```Controller.drawer.add_second_threshold()```
 Adds the second threshold to images that should be drawn. The second threshold is
 based on size and brightness after normalization.
 
-```Image.Controller.drawer.display_drawings()```
+```Controller.drawer.display_drawings()```
 Using matplotlib, this displays the original image along with any drawn images.
 
-```Image.Controller.drawer.draw_all()```
+```Controller.drawer.draw_all()```
 A convenient function that draws all of the possible thresholds.
 
 ## Future Edits
