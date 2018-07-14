@@ -1,6 +1,6 @@
 import time
+
 import ImageDetection
-import ArduinoControl
 
 #imgName = '1521224317.jpg'
 imgName = '1516378704.jpg'

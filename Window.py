@@ -1,15 +1,16 @@
-from PyQt5.QtWidgets import QWidget         # for creating the window
-from PyQt5.QtWidgets import QInputDialog, QLineEdit     # for input boxes
-from PyQt5.QtCore import pyqtSlot           # for the buttons
-import sys
-import time
-
-import Image
+# interface modules
+from PyQt5.QtCore import pyqtSlot  # for the buttons
+from PyQt5.QtWidgets import QInputDialog, QLineEdit  # for input boxes
+from PyQt5.QtWidgets import QWidget  # for creating the window
 import Background as Background
+import Button as Button
 import Display as Display
 import Label as Label
-import Button as Button
-import Slider as Slider
+
+import sys
+import time
+import Image
+import Arduino
 
 
 class Window(QWidget):
@@ -104,13 +105,14 @@ class Window(QWidget):
         waterMenuButtonInfo = {
             'Start Watering': ['The default settings are tailored \n' +
                                'toward outdoor noontime lighting. \n' +
-                               'Try out some thresholds.', self.initWaterMenu],
+                               'Try out some thresholds.', self.onClickWater],
             'Cancel': ['Go to Commands Menu', self.initCommandsMenu]
         }
 
         intervalButtonInfo = {
-            'Change Water Interval': ['Change the interval at which \n' +
-                                      'this device waters plants.', self.onClickChangeWaterInterval]
+            'Change Water Period': ['Change the interval at which \n' +
+                                    'this device waters plants.',
+                                    self.onClickChangeWaterInterval]
         }
 
         self.buttonDict['startMenu'] = Button.createButtons(self, startMenuButtonInfo, 1 / 2, 1 / 2)
@@ -197,6 +199,10 @@ class Window(QWidget):
                                        % self.maxInterval)
                 return
             self.waterInterval = num
+
+    @pyqtSlot()
+    def onClickWater(self):
+        Arduino.controller.water_cycle()
 
     @pyqtSlot()
     def onClickDetectWeeds(self):
