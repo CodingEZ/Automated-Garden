@@ -31,7 +31,7 @@ class Window(QWidget):
 
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        Background.showBackground(self)
+        Background.show_background(self)
 
         self.aboutText = None
         try:

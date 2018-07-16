@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QPixmap
 from PIL import Image
 
-def showBackground(app):
+def show_background(app):
     """Takes the background file name in the __init__ function."""
     labelBack = QLabel(app)
     name = resize_image(app.background, (app.width, app.height))
@@ -10,7 +10,7 @@ def showBackground(app):
     labelBack.setPixmap(pixmap)
 
 
-def getExtensionIndex(name):
+def get_extension_index(name):
     index = -1
     while name[index] != '.' and index > -len(name) + 1:
         index -= 1
@@ -19,7 +19,7 @@ def getExtensionIndex(name):
 
 def resize_image(name, windowSize, imgFormat='JPEG'):
     img = Image.open(name)
-    index = getExtensionIndex(name)
+    index = get_extension_index(name)
     extension = name[index:]
 
     if img.size[0] > windowSize[0]:
