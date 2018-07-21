@@ -25,6 +25,7 @@ run on other operating systems.
 1. Python 3.x, preferably 64-bit
 2. OpenCV 3.0 or higher (possibly will be replaced by tensorflow, TBD)
 3. numpy (latest available version preferred)
+4. pillow (image resizing)
 4. PyQt5 (for the Raspberry Pi interface)
 5. matplotlib (for displaying results, mostly for testing purposes)
 6. serial (if you want to communicate with an Arduino ,working on extension)
