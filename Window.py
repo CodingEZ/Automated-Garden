@@ -15,6 +15,7 @@ from Arduino import ArduinoControl
 imgControl = ImageControl.Controller()
 arduinoControl = ArduinoControl.Controller()
 
+
 class Window(QWidget):
 
     def __init__(self, application, width=1000, height=800):

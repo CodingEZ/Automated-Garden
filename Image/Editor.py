@@ -49,17 +49,21 @@ class Editor:
         ret, thresh = cv2.threshold(self.img, lowestIntensity, 255, cv2.THRESH_BINARY)
         self.maxLocations = copy.deepcopy(self.blackImg)
 
+        maxLocations = self.maxLocations    # improvement on runtime
+
         for y in range(self.height):
             for x in range(self.width):
                 if thresh[y, x] == 255:
-                    self.maxLocations[y, x] = self.white
+                    maxLocations[y, x] = self.white
 
     def find_next_location(self, startY=0):
         """Goes through each ROW from LEFT TO RIGHT until it encounters the first
             true location. Skips every other column and row."""
+        maxLocations = self.maxLocations        # improvement on runtime
+
         for y in range(startY, self.height, 2):
             for x in range(0, self.width, 2):
-                if self.maxLocations[y, x]:
+                if maxLocations[y, x]:
                     return y, x
         return None
 
@@ -82,24 +86,27 @@ class Editor:
         newCheckLocations = set()
         checkedLocations = set()
         region = copy.deepcopy(self.blackImg)
-        self.maxLocations[start[0], start[1]] = self.black  # first spot is already checked
+
+        maxLocations = self.maxLocations        # improvement on runtime
+
+        maxLocations[start[0], start[1]] = self.black  # first spot is already checked
 
         while len(checkLocations) > 0:
             for check in checkLocations:
                 if check not in checkedLocations:
                     checkedLocations.add(check)
-                    if check[0] != 0 and self.maxLocations[check[0]-1, check[1]] == 1:
+                    if check[0] != 0 and maxLocations[check[0]-1, check[1]] == 1:
                         newCheckLocations.add((check[0]-1, check[1]))
-                        self.maxLocations[check[0]-1, check[1]] = self.black
-                    if check[0]+1 != self.height and self.maxLocations[check[0]+1, check[1]] == 1:
+                        maxLocations[check[0]-1, check[1]] = self.black
+                    if check[0]+1 != self.height and maxLocations[check[0]+1, check[1]] == 1:
                         newCheckLocations.add((check[0]+1, check[1]))
-                        self.maxLocations[check[0]+1, check[1]] = self.black
-                    if check[1] != 0 and self.maxLocations[check[0], check[1]-1] == 1:
+                        maxLocations[check[0]+1, check[1]] = self.black
+                    if check[1] != 0 and maxLocations[check[0], check[1]-1] == 1:
                         newCheckLocations.add((check[0], check[1]-1))
-                        self.maxLocations[check[0], check[1]-1] = self.black
-                    if check[1]+1 != self.width and self.maxLocations[check[0], check[1]+1] == 1:
+                        maxLocations[check[0], check[1]-1] = self.black
+                    if check[1]+1 != self.width and maxLocations[check[0], check[1]+1] == 1:
                         newCheckLocations.add((check[0], check[1]+1))
-                        self.maxLocations[check[0], check[1]+1] = self.black
+                        maxLocations[check[0], check[1]+1] = self.black
             for check2 in checkLocations:
                 region[check2[0], check2[1]] = self.white
             checkLocations = newCheckLocations
