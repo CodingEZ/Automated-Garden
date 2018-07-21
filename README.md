@@ -22,12 +22,13 @@ The project was run on a Windows computer, on which OpenCV 3.4 was easy to
 install. However, as long as one could install OpenCV, this project can be 
 run on other operating systems.
 
-1. Python 3.x
-2. OpenCV 3.4
+1. Python 3.x, preferably 64-bit
+2. OpenCV 3.0 or higher (possibly will be replaced by tensorflow, TBD)
 3. numpy (latest available version preferred)
-4. PyQt5 (for the interface)
-5. matplotlib (for displaying results, mostly for testing)
+4. PyQt5 (for the Raspberry Pi interface)
+5. matplotlib (for displaying results, mostly for testing purposes)
 6. serial (if you want to communicate with an Arduino ,working on extension)
+7. tensorflow (naturally runs on a 64-bit operating system)
 
 # How to use this repo
 
