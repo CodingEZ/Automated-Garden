@@ -11,7 +11,7 @@ in the future a neural network to identify plants regardless of size.
 
 # About
 
-This was a project inspired by Farmbot and a group called Sustainable earth 
+This was a project inspired by Farmbot and a group called Sustainable Earth 
 at Carnegie Mellon University. Overall, it has been a rewarding experience 
 to understand to program such a large project in pieces, put everything 
 together, and ultimately see some promising results.
