@@ -33,7 +33,7 @@ run on other operating systems.
 
 # How to use this repo
 
-## Image
+## ImageControl.Controller Class
 
 ```from Image import ImageControl```
 ```imgControl = ImageControl.Controller()```
@@ -82,7 +82,7 @@ Using matplotlib, this displays the original image along with any drawn images.
 ```imgControl.drawer.draw_all()```
 A convenient function that draws all of the possible thresholds.
 
-## Arduino
+## ArduinoControl.Controller Class
 
 ```from Arduino import ArduinoControl```
 ```arduinoControl = ArduinoControl.Controller()```
