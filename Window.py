@@ -7,7 +7,6 @@ import Button as Button
 import Display as Display
 import Label as Label
 
-from multiprocessing import Process
 import sys
 import time
 from Image import ImageControl
@@ -39,7 +38,9 @@ class Window(QWidget):
 
         self.aboutText = None
         try:
-            self.aboutText = open('Texts/About.txt', 'r').read()
+            file = open('Texts/About.txt', 'r')
+            self.aboutText = file.read()
+            file.close()
         except OSError:
             Display.displayWarning(self, 'Failed to load "Texts/About.txt" file. Was it corrupted?')
 
@@ -125,6 +126,10 @@ class Window(QWidget):
                                         Button.createButtons(self, intervalButtonInfo, 2 / 3, 1 / 2)
                                         )
 
+##############################################################
+    # Menu Initializers
+##############################################################
+
     def initStartMenu(self):
         # Labels first
         Label.hideLabels(self.labels)
@@ -205,6 +210,7 @@ class Window(QWidget):
     @pyqtSlot()
     def onClickWater(self):
         arduinoControl.water_cycle()
+        self.log('Water')
 
     @pyqtSlot()
     def onClickDetectWeeds(self):
@@ -222,8 +228,24 @@ class Window(QWidget):
 
     @pyqtSlot()
     def onClickPesticide(self):
-        pass
+        self.log('Pesticide')
 
     @pyqtSlot()
     def onClickQuit(self):
         sys.exit(self.app.exec_())
+
+##############################################################
+    # Helper Functions
+##############################################################
+
+    def log(self, command):
+        completionTime = time.strftime("%m/%d/%Y %H:%M:%S", time.localtime())
+        try:
+            file = open('Texts/Log.txt', 'a')
+            file.write(command + ' : ' + completionTime)
+            file.close()
+        except OSError:
+            file = open('Texts/Temp.txt', 'a')
+            file.write(command + ' : ' + completionTime)
+            file.close()
+            Display.displayWarning(self, "Unable to open 'Texts/Log.txt'. Logged to 'Texts/Temp.txt'")

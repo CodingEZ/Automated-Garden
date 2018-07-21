@@ -18,6 +18,7 @@ def get_extension_index(name):
 
 
 def resize_image(name, windowSize, imgFormat='JPEG'):
+    """Downsizes image to fit parameters. Unable to stretch small images."""
     img = Image.open(name)
     index = get_extension_index(name)
     extension = name[index:]
