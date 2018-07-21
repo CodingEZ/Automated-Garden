@@ -7,11 +7,14 @@ import Button as Button
 import Display as Display
 import Label as Label
 
+from multiprocessing import Process
 import sys
 import time
-from Image import Controller
-import Arduino
+from Image import ImageControl
+from Arduino import ArduinoControl
 
+imgControl = ImageControl.Controller()
+arduinoControl = ArduinoControl.Controller()
 
 class Window(QWidget):
 
@@ -31,7 +34,8 @@ class Window(QWidget):
 
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        Background.show_background(self)
+        Background.load_background(self)
+        self.show()
 
         self.aboutText = None
         try:
@@ -39,9 +43,8 @@ class Window(QWidget):
         except OSError:
             Display.displayWarning(self, 'Failed to load "Texts/About.txt" file. Was it corrupted?')
 
-        self.waterInterval = 10  # minutes
-        self.minInterval = 10
-        self.maxInterval = 20
+        if arduinoControl.arduino is None:
+            Display.displayWarning(self, 'Careful! Arduino was unable to initialize.')
 
         self.labels = []
         self.labelDict = dict()
@@ -52,7 +55,6 @@ class Window(QWidget):
         self.initButtons()
 
         self.initStartMenu()  # begin application in the start menu
-        self.show()
 
     def initLabels(self):
 
@@ -75,7 +77,7 @@ class Window(QWidget):
         self.labelDict['waterMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
                                                       self.largeStyle, 'Garden Water Settings'),
                                         Label.showText(self, 1 / 3, 1 / 2, 1 / 3, 1 / 16, 10, self.smallStyle,
-                                                      'Watering Interval: %d minutes' % self.waterInterval)
+                                                      'Watering Interval: %d minutes' % arduinoControl.waterInterval)
                                        ]
 
     def initButtons(self):
@@ -186,23 +188,23 @@ class Window(QWidget):
     def onClickChangeWaterInterval(self):
         num, okPressed = QInputDialog.getInt(self, "Change Watering Interval",
                                     "Pick an interval (in minutes) at which the device \n" +
-                                    " will water. The minimum interval is %d minutes, \n" % self.minInterval +
-                                    "and the maximum is %d minutes." % self.maxInterval,
-                                    QLineEdit.Normal, self.waterInterval)
+                                    " will water. The minimum interval is %d minutes, \n" % arduinoControl.minInterval +
+                                    "and the maximum is %d minutes." % arduinoControl.maxInterval,
+                                    QLineEdit.Normal, arduinoControl.waterInterval)
         if okPressed:
-            if num < self.minInterval:
+            if num < arduinoControl.minInterval:
                 Display.displayWarning(self, 'You cannot water at intervals less than %d minutes!'
-                                       % self.minInterval)
+                                       % arduinoControl.minInterval)
                 return
-            elif num > self.maxInterval:
+            elif num > arduinoControl.maxInterval:
                 Display.displayWarning(self, 'You cannot water at intervals more than %d minutes!'
-                                       % self.maxInterval)
+                                       % arduinoControl.maxInterval)
                 return
-            self.waterInterval = num
+            arduinoControl.waterInterval = num
 
     @pyqtSlot()
     def onClickWater(self):
-        Arduino.controller.water_cycle()
+        arduinoControl.water_cycle()
 
     @pyqtSlot()
     def onClickDetectWeeds(self):
@@ -210,9 +212,9 @@ class Window(QWidget):
         cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
 
         start = time.time()
-        Controller.drawer.change_default_settings(thresholdBrightness=.35, weedFactor=1 / 16)
-        Controller.image_grab(imgName, cameraNum)
-        Controller.detect_all()
+        imgControl.drawer.change_default_settings(thresholdBrightness=.35, weedFactor=1 / 16)
+        imgControl.image_grab(imgName, cameraNum)
+        imgControl.detect_all()
         # Image.Controller.draw_all()     # currently thread error if run but not terminated in different thread
         stop = time.time()
         print("Algorithm runtime for program:", stop - start)

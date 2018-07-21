@@ -2,10 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b0fbed8-33f9-4e55-a4d1-96e1459aaf96" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Image/WeedClassification.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Image/ImageControl.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Image/Controller.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Logos/backCOPY.jpg" afterPath="$PROJECT_DIR$/Logos/backCOPY.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Weed-Detection.iml" afterPath="$PROJECT_DIR$/.idea/Weed-Detection.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Arduino/ArduinoControl.py" afterPath="$PROJECT_DIR$/Arduino/ArduinoControl.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Arduino/__init__.py" afterPath="$PROJECT_DIR$/Arduino/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Background.py" afterPath="$PROJECT_DIR$/Background.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Image/Drawer.py" afterPath="$PROJECT_DIR$/Image/Drawer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Image/WeedClassification.py" afterPath="$PROJECT_DIR$/Image/WeedClassification.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Image/__init__.py" afterPath="$PROJECT_DIR$/Image/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Window.py" afterPath="$PROJECT_DIR$/Window.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,30 +25,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="WeedClassification.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="13" column="45" lean-forward="false" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Background.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Background.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="450" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -49,15 +36,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>detect.</find>
-      <find>self</find>
-      <find>detctor</find>
-      <find>showText</find>
-      <find>onClickQuit</find>
-      <find>mk_lines</find>
-      <find>createExampleGroup</find>
-      <find>grid</find>
-      <find>try</find>
       <find>equalArray</find>
       <find>find_centroid</find>
       <find>cv2</find>
@@ -79,6 +57,15 @@
       <find>copy</find>
       <find>sameImage</find>
       <find>onClickWater</find>
+      <find>self.waterInterval</find>
+      <find>self.minInterval</find>
+      <find>self.maxInterval</find>
+      <find>drawer</find>
+      <find>same_image</find>
+      <find>editor</find>
+      <find>grip</find>
+      <find>weedFactor</find>
+      <find>Arduino.controller</find>
     </findStrings>
     <replaceStrings>
       <replace>10</replace>
@@ -101,6 +88,13 @@
       <replace>self.drawImgs</replace>
       <replace>if self.arduino == None:    return</replace>
       <replace>if self.arduino == None:</replace>
+      <replace>Arduino.controller.maxInterval</replace>
+      <replace>self.drawer</replace>
+      <replace>__class__.same_image</replace>
+      <replace>self.editor</replace>
+      <replace>self.grip</replace>
+      <replace>self.weedFactor</replace>
+      <replace>arduinoControl</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -112,7 +106,6 @@
         <option value="$PROJECT_DIR$/Garden_Interface/main.py" />
         <option value="$PROJECT_DIR$/main2.py" />
         <option value="$PROJECT_DIR$/Interface/Window.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/PolygonDetect2.py" />
         <option value="$PROJECT_DIR$/ImageEdit6.py" />
         <option value="$PROJECT_DIR$/ImageDetection.py" />
@@ -125,14 +118,16 @@
         <option value="$PROJECT_DIR$/Image/Helper.py" />
         <option value="$PROJECT_DIR$/Image/__init__.py" />
         <option value="$PROJECT_DIR$/Image/Drawer.py" />
-        <option value="$PROJECT_DIR$/Image/Controller.py" />
         <option value="$PROJECT_DIR$/Image/Editor.py" />
         <option value="$PROJECT_DIR$/ArduinoControl.py" />
+        <option value="$PROJECT_DIR$/Image/WeedClassification.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/Arduino/Controller.py" />
+        <option value="$PROJECT_DIR$/Image/Controller.py" />
         <option value="$PROJECT_DIR$/Arduino/__init__.py" />
         <option value="$PROJECT_DIR$/Arduino/ArduinoControl.py" />
         <option value="$PROJECT_DIR$/Background.py" />
         <option value="$PROJECT_DIR$/Window.py" />
-        <option value="$PROJECT_DIR$/Image/WeedClassification.py" />
       </list>
     </option>
   </component>
@@ -176,14 +171,19 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="Weed-Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Weed-Detection" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Weed-Detection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Weed-Detection" type="462c0819:PsiDirectoryNode" />
+              <item name="Arduino" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Weed-Detection" type="b2602c69:ProjectViewProjectNode" />
@@ -198,7 +198,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Swift-Assembler" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -219,7 +219,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.WeedClassification">
+  <component name="RunManager" selected="Python.main (2)">
     <configuration name="WeedClassification" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -260,8 +260,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.WeedClassification" />
-        <item index="1" class="java.lang.String" itemvalue="Python.main (2)" />
+        <item index="0" class="java.lang.String" itemvalue="Python.main (2)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.WeedClassification" />
       </list>
     </recent_temporary>
   </component>
@@ -286,7 +286,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19010417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912844" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912844" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -309,12 +309,74 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Image/Controller.py">
+    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#209#581#0" expanded="false" />
+            <element signature="e#626#2363#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#209#581#0" expanded="false" />
+            <element signature="e#626#2363#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#209#581#0" expanded="false" />
+            <element signature="e#626#2363#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Background.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="15" column="18" lean-forward="false" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#209#581#0" expanded="false" />
+            <element signature="e#626#2363#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Background.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image/ImageControl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -371,13 +433,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Label.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Interface/__init__.py" />
     <entry file="file://$PROJECT_DIR$/ImageDetection.py" />
     <entry file="file://$PROJECT_DIR$/Image/GripEditor.py">
@@ -388,13 +443,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image/Helper.py" />
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Image/Drawer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
@@ -403,39 +451,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Arduino.py" />
-    <entry file="file://$PROJECT_DIR$/Arduino/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Arduino/ArduinoControl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="97" column="28" lean-forward="true" selection-start-line="97" selection-start-column="28" selection-end-line="97" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image/Controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="48" column="15" lean-forward="true" selection-start-line="48" selection-start-column="15" selection-end-line="48" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="18" lean-forward="true" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Slider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="12" column="35" lean-forward="true" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -443,32 +462,90 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3100">
           <caret line="126" column="33" lean-forward="false" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image/addPath.pth" />
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Window.py">
+    <entry file="file://$PROJECT_DIR$/Image/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="true" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image/ImageControl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2056">
+          <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Arduino/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="28" lean-forward="false" selection-start-line="0" selection-start-column="28" selection-end-line="0" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Arduino/ArduinoControl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Background.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        <state relative-caret-position="50">
+          <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Label.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-181">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1025">
+          <caret line="41" column="58" lean-forward="false" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
+          <folding>
+            <element signature="e#20#72#0" expanded="true" />
+            <element signature="e#1997#3749#0" expanded="false" />
+            <element signature="e#3787#5983#0" expanded="false" />
+            <element signature="e#7909#8927#0" expanded="false" />
+            <element signature="e#8981#9009#0" expanded="false" />
+            <element signature="e#9069#9631#0" expanded="false" />
+            <marker date="1532140037970" expanded="false" signature="9737:9772" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" column="45" lean-forward="false" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+        <state relative-caret-position="150">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#209#581#0" expanded="false" />
+            <element signature="e#626#2363#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -1,1 +1,1 @@
-from . import Controller
+from . import ImageControl

@@ -17,11 +17,14 @@ import serial
 #           time (seconds) to water
 
 
-class ArduinoControl:
+class Controller:
 
     def __init__(self):
         """Calibration and set-up"""
         self.lastWater = None
+        self.waterInterval = 10  # minutes
+        self.minInterval = 10
+        self.maxInterval = 20
 
         self.gridSize = (4, 4)
         self.squareDimensions = (15, 15)        # in centimeters
@@ -36,7 +39,6 @@ class ArduinoControl:
             time.sleep(5)          # allow Arduino to reset
         except:
             self.arduino = None
-            print('Careful! Arduino was unable to initialize.')
 
     def is_busy(self):
         if self.arduino == None:    return

@@ -1,4 +1,5 @@
 import tensorflow as tf
+import sklearn
 import numpy as np
 from PIL import Image
 
@@ -24,14 +25,9 @@ class WeedClassifier:
         y = 100
         mode = tf.estimator.ModeKeys.TRAIN
 
-        for i in range(len(imgs)):
-            img = __class__.resize_img(imgs[i], x, y)
-            if img is None:
-                print('Removing image %d due to size restriction.' % i)
-                return None
-
+        print(imgs[0].shape)
         # Input Layer
-        input_layer = tf.reshape(imgs, [-1, x, y, 1])
+        input_layer = [tf.reshape(img, [-1, x, y, 3]) for img in imgs]
         # -1 is for dynamic calculation based on batch size
 
         # Convolutional Layer #1
@@ -65,7 +61,7 @@ class WeedClassifier:
 
         # Calculate Loss
         loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
-
+        
         # Configure the Training Op (for TRAIN mode)
         optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001)
         train_op = optimizer.minimize(
@@ -73,9 +69,34 @@ class WeedClassifier:
             global_step=tf.train.get_global_step())
 
         return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
-
+        
 import os
-weeds = os.listdir('Weed-Broadleaf_Plantain_small')
-plants = os.listdir('Plant-Lettuce_small')
+from sklearn.model_selection import train_test_split
 
+# weed folder and plant folder
+wFolder = 'Weed-Broadleaf_Plantain_small'
+pFolder = 'Plant-Lettuce_small'
 
+# rename for full relative path
+weeds = os.listdir(wFolder)
+weeds = [os.path.join(wFolder, name) for name in weeds]
+weedLabels = [1 for _ in range(len(weeds))]
+plants = os.listdir(pFolder)
+plants = [os.path.join(pFolder, name) for name in plants]
+plantLabels = [0 for _ in range(len(plants))]
+
+# put together the two different lists
+objects = weeds + plants
+labels = weedLabels + plantLabels
+
+# objects -> imgs
+imgs = [np.asarray(Image.open(name).convert('L')) for name in objects]
+
+# split the data
+X_train, y_train, X_test, y_test = train_test_split(imgs, labels, test_size=0.2)
+print(len(X_train), len(y_train))
+print(len(X_test), len(y_test))
+
+# weed classifier
+wc = WeedClassifier()
+wc.train(X_train, y_train)

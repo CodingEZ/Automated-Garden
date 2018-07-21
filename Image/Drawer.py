@@ -86,4 +86,3 @@ class Drawer:
                 plt.imshow(self.drawImgs[i], 'gray')
                 plt.title(self.drawNames[i])
         plt.show()
-
