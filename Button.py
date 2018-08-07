@@ -15,7 +15,7 @@ def createButtons(app, buttonInfo, widthFactor, heightFactor):
         newButton = QPushButton(name, app)
         newButton.setObjectName(name)
         newButton.setToolTip(buttonInfo[name][0])
-        newButton.resize(200, 60)
+        newButton.resize(250, 50)
         newButton.move(app.width * widthFactor - newButton.width() / 2,
                        app.height * heightFactor - (len(buttonInfo) * newButton.height()) / 2
                                 + index * newButton.height())

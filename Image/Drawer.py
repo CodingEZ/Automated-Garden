@@ -1,3 +1,5 @@
+# EDIT OUTLINING
+
 from matplotlib import pyplot as plt
 
 
@@ -48,15 +50,15 @@ class Drawer:
         color = (255, 0, 255)
         __class__.outline(self.finalImg, self.largeRegions, color)
 
-    def add_outlines(self):
-        """Add the original image with outlines for the plant and weeds."""
-        self.drawImgs.append(self.finalImg)
-        self.drawNames.append('self.finalImg')
-
     def add_original(self):
         """Add the original image"""
         self.drawImgs.append(self.img)
         self.drawNames.append('self.img')
+
+    def add_outlines(self):
+        """Add the original image with outlines for the plant and weeds."""
+        self.drawImgs.append(self.finalImg)
+        self.drawNames.append('self.finalImg')
 
     def add_first_threshold(self):
         """Add the original image with outlines after it is filtered."""

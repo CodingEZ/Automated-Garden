@@ -1,2 +1,5 @@
 Logging File
 
+
+Water : 08/06/2018 22:59:37
+Weed Detection : 08/07/2018 01:36:41
