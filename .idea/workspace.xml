@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b0fbed8-33f9-4e55-a4d1-96e1459aaf96" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Image/Editor.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Image/Editor.py" afterPath="$PROJECT_DIR$/Image/Pointer.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Image/Drawer.py" afterPath="$PROJECT_DIR$/Old Code/Drawer.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Image/GripEditor.py" afterPath="$PROJECT_DIR$/Old Code/GripEditor.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Image/ImageControl.py" afterPath="$PROJECT_DIR$/Old Code/ImageControl.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Image/Pointer.py" afterPath="$PROJECT_DIR$/Old Code/Pointer.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/PolygonDetect2.py" afterPath="$PROJECT_DIR$/Old Code/PolygonDetect2.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Button.py" afterPath="$PROJECT_DIR$/Button.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Image/Drawer.py" afterPath="$PROJECT_DIR$/Image/Drawer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Image/ImageControl.py" afterPath="$PROJECT_DIR$/Image/ImageControl.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Image/__init__.py" afterPath="$PROJECT_DIR$/Image/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Texts/Log.txt" afterPath="$PROJECT_DIR$/Texts/Log.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Window.py" afterPath="$PROJECT_DIR$/Window.py" />
     </list>
@@ -19,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="450" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -30,19 +31,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.editor</find>
-      <find>needToCopy</find>
-      <find>imgNames</find>
-      <find>imgs</find>
-      <find>self.size</find>
-      <find>copy</find>
-      <find>sameImage</find>
-      <find>onClickWater</find>
-      <find>self.waterInterval</find>
       <find>self.minInterval</find>
       <find>self.maxInterval</find>
       <find>drawer</find>
-      <find>same_image</find>
       <find>editor</find>
       <find>grip</find>
       <find>weedFactor</find>
@@ -60,13 +51,18 @@
       <find>find_next_location</find>
       <find>self.regions</find>
       <find>largeRegions</find>
+      <find>self.size</find>
+      <find>self.editor</find>
+      <find>/</find>
+      <find>self.final</find>
+      <find>thresholdBrightness</find>
+      <find>self.finalImg</find>
+      <find>same_image</find>
+      <find>self.height</find>
+      <find>self.drawer</find>
+      <find>time</find>
     </findStrings>
     <replaceStrings>
-      <replace>main.onClickQuit</replace>
-      <replace>createSlider</replace>
-      <replace>sliderGrid</replace>
-      <replace>Helper.equalArray</replace>
-      <replace>start</replace>
       <replace>editor</replace>
       <replace>self.max_locations</replace>
       <replace>()</replace>
@@ -92,6 +88,11 @@
       <replace>Brightness</replace>
       <replace>0</replace>
       <replace>find_next_region</replace>
+      <replace>self.pointer</replace>
+      <replace>brightness</replace>
+      <replace>self.imgOutlined</replace>
+      <replace>center[1]</replace>
+      <replace>d</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -109,7 +110,6 @@
         <option value="$PROJECT_DIR$/Interface_Slider.py" />
         <option value="$PROJECT_DIR$/Image/ImageDetection.py" />
         <option value="$PROJECT_DIR$/Interface_Window.py" />
-        <option value="$PROJECT_DIR$/Image/GripEditor.py" />
         <option value="$PROJECT_DIR$/Image/Detection.py" />
         <option value="$PROJECT_DIR$/Image/FindPlant.py" />
         <option value="$PROJECT_DIR$/Image/Helper.py" />
@@ -125,10 +125,16 @@
         <option value="$PROJECT_DIR$/Display.py" />
         <option value="$PROJECT_DIR$/Texts/Log.txt" />
         <option value="$PROJECT_DIR$/Button.py" />
-        <option value="$PROJECT_DIR$/Window.py" />
-        <option value="$PROJECT_DIR$/Image/Drawer.py" />
         <option value="$PROJECT_DIR$/Image/Editor.py" />
+        <option value="$PROJECT_DIR$/Image/Drawer.py" />
+        <option value="$PROJECT_DIR$/Image/GripEditor2.py" />
+        <option value="$PROJECT_DIR$/Image/Pointer2.py" />
+        <option value="$PROJECT_DIR$/Image/GripEditor.py" />
+        <option value="$PROJECT_DIR$/Image/Drawer2.py" />
+        <option value="$PROJECT_DIR$/Image/ImageControl2.py" />
         <option value="$PROJECT_DIR$/Image/ImageControl.py" />
+        <option value="$PROJECT_DIR$/Window.py" />
+        <option value="$PROJECT_DIR$/Image/Pointer.py" />
       </list>
     </option>
   </component>
@@ -193,11 +199,12 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Evan Zeng\Desktop\Github-Desktop\Weed-Detection\Image" />
       <recent name="C:\Users\Evan Zeng\Desktop\Github-Desktop\Weed-Detection\Old Code" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Evan Zeng\Desktop\Github-Desktop\Weed-Detection\Arduino" />
       <recent name="C:\Users\Evan Zeng\Desktop\Github-Desktop\Weed-Detection\Old Code" />
+      <recent name="C:\Users\Evan Zeng\Desktop\Github-Desktop\Weed-Detection\Arduino" />
       <recent name="C:\Users\Evan Zeng\Desktop\Github-Desktop\Weed-Detection" />
     </key>
   </component>
@@ -280,7 +287,6 @@
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19010417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912844" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -294,6 +300,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912844" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -303,67 +310,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="14" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Window.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Background.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="15" column="18" lean-forward="false" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image/WeedClassification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Background.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -371,14 +322,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Image/ImageControl.py">
+    <entry file="file://$PROJECT_DIR$/Old Code/ImageControl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Image/Pointer.py">
+    <entry file="file://$PROJECT_DIR$/Old Code/Pointer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1100">
           <caret line="138" column="38" lean-forward="false" selection-start-line="138" selection-start-column="38" selection-end-line="138" selection-end-column="38" />
@@ -413,7 +364,7 @@
     <entry file="file://$PROJECT_DIR$/Old Code/Text.py" />
     <entry file="file://$PROJECT_DIR$/Old Code/main.py" />
     <entry file="file://$PROJECT_DIR$/ImageHelp.py" />
-    <entry file="file://$PROJECT_DIR$/PolygonDetect2.py">
+    <entry file="file://$PROJECT_DIR$/Old Code/PolygonDetect2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
           <caret line="80" column="16" lean-forward="false" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
@@ -458,7 +409,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -466,9 +416,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -476,7 +423,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6">
           <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -484,9 +430,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="10" column="62" lean-forward="false" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
-          <folding>
-            <element signature="e#260#859#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -494,7 +437,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -502,7 +444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -510,56 +451,103 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Window.py">
+    <entry file="file://$PROJECT_DIR$/Camera/1516378704.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Camera/4.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Camera/3.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Camera/2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Old Code/Pointer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="247" column="33" lean-forward="false" selection-start-line="247" selection-start-column="33" selection-end-line="247" selection-end-column="33" />
+        <state relative-caret-position="450">
+          <caret line="69" column="30" lean-forward="false" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
           <folding>
-            <element signature="e#850#2227#0" expanded="false" />
-            <element signature="e#2264#3920#0" expanded="false" />
-            <element signature="e#3957#6238#0" expanded="false" />
-            <element signature="e#6428#6728#0" expanded="false" />
-            <element signature="e#6770#7076#0" expanded="false" />
-            <element signature="e#7118#7424#0" expanded="false" />
-            <element signature="e#7463#7763#0" expanded="false" />
-            <element signature="e#7812#8125#0" expanded="false" />
-            <element signature="e#8345#9363#0" expanded="false" />
-            <element signature="e#9437#10430#0" expanded="false" />
-            <element signature="e#10484#10538#0" expanded="false" />
-            <element signature="e#10598#11189#0" expanded="false" />
-            <element signature="e#11247#11268#0" expanded="false" />
-            <element signature="e#11321#11347#0" expanded="false" />
-            <element signature="e#11535#12137#0" expanded="false" />
+            <element signature="e#0#10#0" expanded="false" />
+            <element signature="e#102#508#0" expanded="false" />
+            <element signature="e#549#809#0" expanded="false" />
+            <element signature="e#843#1182#0" expanded="false" />
+            <element signature="e#1245#1880#0" expanded="false" />
+            <element signature="e#1932#2328#0" expanded="false" />
+            <element signature="e#2387#2684#0" expanded="false" />
+            <element signature="e#2737#4532#0" expanded="false" />
+            <element signature="e#3557#3665#0" expanded="false" />
+            <element signature="e#3784#3892#0" expanded="false" />
+            <element signature="e#3999#4107#0" expanded="false" />
+            <element signature="e#4225#4333#0" expanded="false" />
+            <element signature="e#4575#4840#0" expanded="false" />
+            <element signature="e#4876#5367#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Image/Drawer.py">
+    <entry file="file://$PROJECT_DIR$/Old Code/Drawer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+        <state relative-caret-position="181">
+          <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Image/ImageControl.py">
+    <entry file="file://$PROJECT_DIR$/Old Code/GripEditor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" column="30" lean-forward="true" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        <state relative-caret-position="-4031">
+          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
           <folding>
-            <element signature="e#35#60#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Old Code/ImageControl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="58" column="12" lean-forward="false" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="12" />
+          <folding>
+            <element signature="e#35#64#0" expanded="true" />
+            <element signature="e#246#461#0" expanded="false" />
+            <element signature="e#525#896#0" expanded="false" />
+            <element signature="e#956#1637#0" expanded="false" />
+            <element signature="e#1683#1747#0" expanded="false" />
+            <element signature="e#2104#2318#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image/GripEditor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="225">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding>
+            <element signature="e#128#1049#0" expanded="false" />
+            <element signature="e#1091#2694#0" expanded="false" />
+            <element signature="e#2772#3296#0" expanded="false" />
+            <element signature="e#3371#3954#0" expanded="false" />
+            <element signature="e#4095#5250#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image/Drawer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -567,31 +555,58 @@
     <entry file="file://$PROJECT_DIR$/Image/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="18" lean-forward="true" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image/ImageControl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#110#289#0" expanded="false" />
+            <element signature="e#353#724#0" expanded="false" />
+            <element signature="e#784#1519#0" expanded="false" />
+            <element signature="e#1556#1746#0" expanded="false" />
+            <element signature="e#1784#1920#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#20#30#0" expanded="true" />
+            <element signature="e#807#2184#0" expanded="false" />
+            <element signature="e#2221#3672#0" expanded="false" />
+            <element signature="e#3709#5765#0" expanded="false" />
+            <element signature="e#5955#6255#0" expanded="false" />
+            <element signature="e#6297#6603#0" expanded="false" />
+            <element signature="e#6645#6951#0" expanded="false" />
+            <element signature="e#6990#7290#0" expanded="false" />
+            <element signature="e#7339#7652#0" expanded="false" />
+            <element signature="e#7872#8890#0" expanded="false" />
+            <element signature="e#8944#8998#0" expanded="false" />
+            <element signature="e#9354#9375#0" expanded="false" />
+            <element signature="e#9428#9454#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image/Pointer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="375">
+          <caret line="23" column="21" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#102#514#0" expanded="false" />
-            <element signature="e#555#815#0" expanded="false" />
-            <element signature="e#849#1188#0" expanded="false" />
-            <element signature="e#1251#1886#0" expanded="false" />
-            <element signature="e#1938#2334#0" expanded="false" />
-            <element signature="e#2393#2646#0" expanded="false" />
-            <element signature="e#2699#4494#0" expanded="false" />
-            <element signature="e#3519#3627#0" expanded="false" />
-            <element signature="e#3746#3854#0" expanded="false" />
-            <element signature="e#3961#4069#0" expanded="false" />
-            <element signature="e#4187#4295#0" expanded="false" />
-            <element signature="e#4537#4802#0" expanded="false" />
-            <element signature="e#4836#4868#0" expanded="false" />
-            <element signature="e#4903#4935#0" expanded="false" />
+            <element signature="e#76#138#0" expanded="false" />
+            <element signature="e#167#203#0" expanded="false" />
+            <element signature="e#717#1136#0" expanded="false" />
+            <marker date="1534131529715" expanded="false" signature="237:409" ph="..." />
           </folding>
         </state>
       </provider>

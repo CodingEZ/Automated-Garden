@@ -1,16 +1,17 @@
 # interface modules
+import sys
+import time
+
 from PyQt5.QtCore import pyqtSlot  # for the buttons
 from PyQt5.QtWidgets import QInputDialog, QLineEdit  # for input boxes
 from PyQt5.QtWidgets import QWidget  # for creating the window
-import Background as Background
-import Button as Button
-import Display as Display
-import Label as Label
 
-import sys
-import time
-from Image import ImageControl
+import Background
+import Button
+import Display
+import Label
 from Arduino import ArduinoControl
+from Image import ImageControl
 
 imgControl = ImageControl.Controller()
 arduinoControl = ArduinoControl.Controller()
@@ -89,8 +90,6 @@ class Window(QWidget):
                                 __class__.largeStyle, 'Garden Water Settings'),
                          Label.showText(self, 1 / 3, 16 / 36, 1 / 3, 1 / 20, 10, __class__.smallStyle,
                                 'Watering Interval: %d minutes' % arduinoControl.waterInterval),
-                         Label.showText(self, 1 / 3, 18 / 36, 1 / 3, 1 / 20, 10, __class__.smallStyle,
-                                'Threshold Brightness: %d out of 1' % imgControl.thresholdBrightness)
                          ]
 
     def initButtons(self):
@@ -126,10 +125,7 @@ class Window(QWidget):
         intervalBI = {
             'Change Water Period': ['Change the interval at which \n' +
                                     'this device waters plants.',
-                                    self.onClickChangeWaterInterval],
-            'Change Threshold Brightness': ['Change the brightness at which \n' +
-                                    'this device detects plants.',
-                                    self.onClickChangeThresholdBrightness]
+                                    self.onClickChangeWaterInterval]
         }
 
         self.buttonDict['startMenu'] = Button.createButtons(self, startMenuBI, 1 / 2, 1 / 2)
@@ -222,42 +218,19 @@ class Window(QWidget):
             arduinoControl.waterInterval = num
 
     @pyqtSlot()
-    def onClickChangeThresholdBrightness(self):
-        num, okPressed = QInputDialog.getInt(self, "Change Threshold Brightness",
-                                    "Pick an interval (in minutes) at which the device \n" +
-                                    " will water. The minimum interval is %d minutes, \n" % imgControl.minBrightness +
-                                    "and the maximum is %d minutes." % imgControl.maxBrightness,
-                                    QLineEdit.Normal, imgControl.thresholdBrightness)
-        if okPressed:
-            if num < imgControl.minBrightness:
-                Display.displayWarning(self, 'Threshold cannot be less than %d minutes!'
-                                       % imgControl.minBrightness)
-                return
-            elif num > imgControl.maxBrightness:
-                Display.displayWarning(self, 'Threshold cannot be more than %d minutes!'
-                                       % imgControl.maxBrightness)
-                return
-            imgControl.thresholdBrightness = num
-
-    @pyqtSlot()
     def onClickWater(self):
         arduinoControl.water_cycle()
         self.log('Water')
 
     @pyqtSlot()
     def onClickDetectWeeds(self):
-        imgName = '1516378704.jpg'
+        imgName = '5.jpg'
         cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
 
-        start = time.time()
-        imgControl.drawer.change_default_settings(thresholdBrightness=.35, weedFactor=1 / 16)
         imgControl.image_grab(imgName, cameraNum)
         imgControl.find_plants()
-        #imgControl.draw_all()     # currently thread error if run but not terminated in different thread
-        stop = time.time()
+        imgControl.draw_all()
         self.log('Weed Detection')
-        print("Algorithm runtime for program:", stop - start)
-            # add this to the log, along with start time
 
     @pyqtSlot()
     def onClickPesticide(self):

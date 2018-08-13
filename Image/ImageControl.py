@@ -1,20 +1,17 @@
-# EDIT WHAT TO SEND TO THE DRAWER
-
 from . import Drawer as d
-from . import Pointer as e       # version 4 contains polygon detection
-from . import GripEditor as g   # version 3 only
+from . import Pointer as p
+
 
 class Controller:
     
     def __init__(self):
-
-        self.thresholdBrightness = .6
-        self.minBrightness = .01
-        self.maxBrightness = 1
-        
-        self.drawer = d.Drawer()
-        self.editor = e.Pointer(img=None)
-        self.grip = g.GripPipeline()
+        self.img = None
+        self.imgOutlined = None
+        self.center = None
+        self.contours = []
+        self.centroids = []
+        self.plant = None
+        self.weeds = []
 
     @staticmethod
     def same_image(array1, array2):
@@ -32,8 +29,7 @@ class Controller:
     def image_grab(self, imgName, cameraNum):
         """Grabs an image. Uses an existing image if name is given. Otherwise takes an
             image using a given camera."""
-        import cv2
-        import time
+        import cv2, time, copy
         if imgName is None:
             cap = cv2.VideoCapture(cameraNum)
             img = cap.read()[1]
@@ -41,27 +37,24 @@ class Controller:
             cap.release()  # When everything done, release the capture
         else:
             img = cv2.imread('Camera\\' + imgName, 1)
-    
-        thresh1 = self.grip_filter(img)
-        self.editor.select_img(thresh1)
-        self.drawer.select_img(img)
-        self.drawer.select_thresh1(thresh1)
-    
-    def grip_filter(self, img):
-        self.grip.process(img)
-        return self.grip.normalize_output
-    
+
+        self.contours = []
+        self.centroids = []
+        self.plant = None
+        self.weeds = []
+
+        self.img = img
+        self.imgOutlined = copy.deepcopy(img)
+        (height, width, channels) = img.shape
+        self.center = (width/2, height/2)
+
     def find_plants(self):
-        self.editor.max_locations(self.drawer.thresholdBrightness)
-        self.editor.get_all_centroids()
-        self.drawer.plant = self.editor.get_crop()
-        self.drawer.weeds = self.editor.get_weeds()
+        self.contours = p.get_contours(self.img)
+        self.centroids = p.get_all_centroids(self.contours)
+        self.plant, self.weeds = p.get_plants(self.contours, self.centroids, self.center)
     
     def draw_all(self):
-        self.drawer.outline_weeds()
-        self.drawer.outline_plant()
-        self.drawer.add_original()
-        self.drawer.add_outlines()
-        self.drawer.add_first_threshold()
-        self.drawer.display_drawings()
+        d.outline_weeds(self.imgOutlined, self.weeds)
+        d.outline_plant(self.imgOutlined, self.plant)
+        d.show_img(self.imgOutlined)
 
