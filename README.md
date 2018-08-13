@@ -18,9 +18,10 @@ together, and ultimately see some promising results.
 
 # Requirements
 
-The project was run on a Windows computer, on which OpenCV 3.4 was easy to 
+The project was tested on a Windows computer, on which OpenCV 3.4 was easy to 
 install. However, as long as one could install OpenCV, this project can be 
-run on other operating systems.
+run on other operating systems. Of course, the intention is to transition to
+running on a Raspberry Pi.
 
 1. Python 3.x, preferably 64-bit
 2. OpenCV 3.0 or higher (possibly will be replaced by tensorflow, TBD)
@@ -31,7 +32,7 @@ run on other operating systems.
 6. serial (if you want to communicate with an Arduino ,working on extension)
 7. tensorflow (naturally runs on a 64-bit operating system)
 
-# How to use this repo
+# How to use this repo (currently outdated, will update soon)
 
 ## ImageControl.Controller Class
 
@@ -96,5 +97,3 @@ Waters in an order still to be determined.
 # Future Edits
 I am continuing to add arduino communication capabilities to allow one to implement 
 the weed detection in an Arduino garden.
-
-I am currently working on an interface for use on a Raspberry Pi.
