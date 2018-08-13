@@ -28,8 +28,8 @@ running on a Raspberry Pi.
 3. numpy (latest available version preferred)
 4. pillow (image resizing)
 5. PyQt5 (for the Raspberry Pi interface)
-    Look to the following link for more specific directions: https://raspberrypi.stackexchange.com/questions/62939/pyqt5-on-a-raspberry-pi
-    PyQt4 is also possible, though the entire interface must be edited for that
+    a. Look to the following link for more specific directions: https://raspberrypi.stackexchange.com/questions/62939/pyqt5-on-a-raspberry-pi
+    b. PyQt4 is also possible, though the entire interface must be edited for that
 6. serial (for Arduino communication, currently working on extension)
 7. (FUTURE) tensorflow (normally runs on a 64-bit operating system, have not implemented)
 
