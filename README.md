@@ -18,11 +18,6 @@ together, and ultimately see some promising results.
 
 # Requirements
 
-The project was tested on a Windows computer, on which OpenCV 3.4 was easy to 
-install. However, as long as one could install OpenCV, this project can be 
-run on other operating systems. Of course, the intention is to transition to
-running on a Raspberry Pi.
-
 1. Python 3.x
 2. OpenCV 3.0 or higher (currently using 3.4.1)
 3. numpy (latest available version preferred)
