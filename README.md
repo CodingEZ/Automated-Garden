@@ -18,21 +18,20 @@ together, and ultimately see some promising results.
 
 # Requirements
 
-The project was tested on a Windows computer, on which OpenCV 3.4 was easy to 
-install. However, as long as one could install OpenCV, this project can be 
-run on other operating systems. Of course, the intention is to transition to
-running on a Raspberry Pi.
-
-1. Python 3.x, preferably 64-bit
-2. OpenCV 3.0 or higher (possibly will be replaced by tensorflow, TBD)
+1. Python 3.x
+2. OpenCV 3.0 or higher (currently using 3.4.1)
 3. numpy (latest available version preferred)
 4. pillow (image resizing)
-4. PyQt5 (for the Raspberry Pi interface)
-5. matplotlib (for displaying results, mostly for testing purposes)
-6. serial (if you want to communicate with an Arduino ,working on extension)
-7. tensorflow (naturally runs on a 64-bit operating system)
+5. PyQt5 (for the Raspberry Pi interface)
 
-# How to use this repo (currently outdated, will update soon)
+    For more specific directions: https://raspberrypi.stackexchange.com/questions/62939/pyqt5-on-a-raspberry-pi
+    
+    PyQt4 is also possible, though the entire interface must be edited for that
+    
+6. serial (for Arduino communication, currently working on extension)
+7. (FUTURE) tensorflow (normally runs on a 64-bit operating system, have not implemented)
+
+# How to use this repo
 
 ## ImageControl.Controller Class
 
@@ -44,44 +43,16 @@ functions with matplotlib. The Editor creates different thresholds for image
 processing, and calls the Grip pipeline object for filtering.
 
 ```imgControl.image_grab()```
-This function must be called in order to initialize the image. Can use a given
-image in the folder Camera or can take an image with a given camera.
+Must be called in order to initialize the image. Can use a given image in the Camera
+folder or can take an image with a given camera.
 
-```imgControl.find_plant()```
+```imgControl.find_plants()```
+Finds a plant and weeds based on default thresholds. Future edits will allow for 
+changes. Currently, the center-most object is identified as a plant, and all other 
+objects identified as weeds. 
 
-This function finds the plant, which is (for now) the object that has the 
-largest size after thresholding and normalizing. Some of the thresholds have 
-defaults, but others are currently fixed.
-
-```imgControl.find_weeds()```
-This function labels all other regions as weeds.
-
-```imgControl.detect_all()```
-This function calls find_plant() and find_weed().
-
-```imgControl.drawer.outline_weeds()```
-One can outline the contour of all weeds. The color is currently fixed to magenta.
-
-```imgControl.drawer.outline_plant()```
-One can outline the contour of the plant detected. The color is currently fixed to green.
-
-```imgControl.drawer.add_outlines()```
-Adds the original image with added outlines to images to be drawn. It currently 
-produces an error if no outlines are made.
-
-```imgControl.drawer.add_first_threshold()```
-Adds the first threshold to images that should be drawn. The first threshold is
-only an HSV threshold.
-
-```imgControl.drawer.add_second_threshold()```
-Adds the second threshold to images that should be drawn. The second threshold is
-based on size and brightness after normalization.
-
-```imgControl.drawer.display_drawings()```
-Using matplotlib, this displays the original image along with any drawn images.
-
-```imgControl.drawer.draw_all()```
-A convenient function that draws all of the possible thresholds.
+```imgControl.draw_all()```
+Outlines the plant in green and the weeds in blue, and displays the result.
 
 ## ArduinoControl.Controller Class
 
@@ -96,4 +67,5 @@ Waters in an order still to be determined.
 
 # Future Edits
 I am continuing to add arduino communication capabilities to allow one to implement 
-the weed detection in an Arduino garden.
+the weed detection in an Arduino garden. Interface is already implemented on Raspberry
+Pi 3+.
