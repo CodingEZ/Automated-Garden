@@ -63,11 +63,11 @@ class Controller:
         dy = cy - self.curY
         if dx > 0:
             self.move('r', dx / self.turnSpeed)
-        elif dx < 0:
+        else:
             self.move('l', dx * (-1) / self.turnSpeed)
         if dy > 0:
             self.move('d', dy / self.turnSpeed)
-        elif dy < 0:
+        else:
             self.move('u', dy * (-1) / self.turnSpeed)
 
     def water(self, period=10):
