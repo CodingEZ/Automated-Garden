@@ -18,7 +18,7 @@ arduinoControl = ArduinoControl.Controller()
 
 
 class Window(QWidget):
-    
+
     largeStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 14pt; }"
     mediumStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 11pt; }"
     smallStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 9pt; }"
@@ -241,7 +241,7 @@ class Window(QWidget):
         sys.exit(self.app.exec_())
 
 ##############################################################
-    # Helper Functions
+# Helper Functions
 ##############################################################
 
     def log(self, command):
