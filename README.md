@@ -37,9 +37,9 @@ together, and ultimately see some promising results.
 
 ```from Image import ImageControl```
 ```imgControl = ImageControl.Controller()```
-Creating a new instance of the Controller will immediately create three objects, 
-a Drawer, an Editor, and a GripPipeline. The Drawer handles all drawing and outline 
-functions with matplotlib. The Editor creates different thresholds for image 
+Creating a new instance of the Controller will immediately create two objects, 
+a Drawer and an Editor. The Drawer handles all drawing and outline 
+functions with opencv. The Editor creates different thresholds for image 
 processing, and calls the Grip pipeline object for filtering.
 
 ```imgControl.image_grab()```
@@ -59,13 +59,14 @@ Outlines the plant in green and the weeds in blue, and displays the result.
 ```from Arduino import ArduinoControl```
 ```arduinoControl = ArduinoControl.Controller()```
 
-Creating an instance of Controller opens up serial communication with an Arduino
+Creating an instance of Controller opens up serial communication with an Arduino.
+More testing will improve the consistency of the connection.
 
 ```arduinoControl.water_cycle()```
 
-Waters in an order still to be determined.
+Commands such as watering are still being determined.
 
 # Future Edits
-I am continuing to add arduino communication capabilities to allow one to implement 
-the weed detection in an Arduino garden. Interface is already implemented on Raspberry
-Pi 3+.
+I am continuing to add Arduino communication capabilities to allow one to implement 
+the weed detection on a Raspberry Pi. The PyQt5 interface is already implemented on 
+Raspberry Pi 3+.
