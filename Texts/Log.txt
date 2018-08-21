@@ -1,19 +1,4 @@
 Logging File
 
-
 Water : 08/06/2018 22:59:37
 Weed Detection : 08/07/2018 01:36:41
-Weed Detection : 08/10/2018 21:42:34
-Weed Detection : 08/10/2018 21:44:11
-Weed Detection : 08/10/2018 21:47:27
-Weed Detection : 08/11/2018 11:13:12
-Weed Detection : 08/11/2018 11:18:33
-Weed Detection : 08/11/2018 11:18:48
-Weed Detection : 08/11/2018 11:28:08
-Weed Detection : 08/11/2018 11:33:48
-Weed Detection : 08/12/2018 19:42:41
-Weed Detection : 08/12/2018 23:33:03
-Weed Detection : 08/12/2018 23:33:59
-Weed Detection : 08/12/2018 23:36:36
-Weed Detection : 08/12/2018 23:37:50
-Weed Detection : 08/12/2018 23:38:57

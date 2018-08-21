@@ -55,9 +55,6 @@ class Window(QWidget):
         except OSError:
             Display.displayWarning(self, 'Failed to load "Texts/Log.txt" file. Was it corrupted?')
 
-        if arduinoControl.arduino is None:
-            Display.displayWarning(self, 'Careful! Arduino was unable to initialize.')
-
         self.labels = []
         self.labelDict = dict()
         self.initLabels()
@@ -219,8 +216,20 @@ class Window(QWidget):
 
     @pyqtSlot()
     def onClickWater(self):
-        arduinoControl.water_cycle()
+        arduinoControl.make_connection()
+        arduinoControl.ser.flushInput()
+        arduinoControl.flush_read()
+        #arduinoControl.water_cycle()
+        arduinoControl.water()
+        if arduinoControl.no_connection() is None:
+            Display.displayWarning(self, 'Arduino was unable to initialize.')
+            return
+        arduinoControl.wait(1)
+        start = time.time()
+        while time.time() - start < 2:
+            message = arduinoControl.read_message()
         self.log('Water')
+        arduinoControl.close_connection()
 
     @pyqtSlot()
     def onClickDetectWeeds(self):
@@ -234,7 +243,13 @@ class Window(QWidget):
 
     @pyqtSlot()
     def onClickPesticide(self):
+        arduinoControl.make_connection()
+        #arduinoControl.kill_weeds()
+        if arduinoControl.no_connection() is None:
+            Display.displayWarning(self, 'Arduino was unable to initialize.')
+            return
         self.log('Pesticide')
+        arduinoControl.close_connection()
 
     @pyqtSlot()
     def onClickQuit(self):

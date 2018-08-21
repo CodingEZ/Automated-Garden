@@ -1,28 +1,29 @@
 import time
 import serial
 
+# keep everything consistent (seconds?, centimeters?)
 
 # command list:
 #   0 : move
-#       direction
+#       char: direction
 #           u : up
 #           d : down
 #           l : left
 #           r : right
-#       number
+#       number : ?
 #           time (seconds) to move
 #           could also use distance
 #   1 : water
-#       number
-#           time (seconds) to water
+#       number : time (seconds) to water
 
 
 class Controller:
 
     def __init__(self):
-        """Calibration and set-up"""
+        """Calibration and set-up of all variables. Only one instance of the
+            controller should be maintained."""
         self.lastWater = None
-        self.waterInterval = 10  # minutes
+        self.waterInterval = 10  # minutes, should change to seconds
         self.minInterval = 10
         self.maxInterval = 20
 
@@ -34,30 +35,101 @@ class Controller:
         self.unitY = 180        # same for y
         self.turnSpeed = 00     # cm per second, CURRENTLY UNKNOWN
 
+        self.ser = None
+
+    def make_connection(self):
+        """Pick the connection with the right port."""
         try:
-            self.arduino = serial.Serial("/dev/ttyACM0", 9600, timeout=2)  # set up the serial port
-            time.sleep(5)          # allow Arduino to reset
+            #self.ser = serial.Serial('/dev/ttyACM0', baudrate = 9600, timeout = 1.0)
+            #self.ser = serial.Serial('/dev/ttyACM1', baudrate = 9600, timeout = 1.0)
+            self.ser = serial.Serial('\\.\COM3', baudrate = 9600, timeout = 1.0)
+            print("Serial connection opened.")
         except:
-            self.arduino = None
+            self.ser = None
 
-    def is_busy(self):
-        if self.arduino == None:    return
+    def no_connection(self):
+        if self.ser is None:
+            print('No Arduino was initialized')
+            return True
+        return False
 
-        arduinoMessage = self.arduino.read().decode()
-        # more work to be done here
+    def close_connection(self):
+        """Closes an existing connection."""
+        if self.no_connection():    return
+        
+        self.ser.close()
+        print("Serial connection closed.")
+
+    def wait(self, period):
+        """Waits until message is available to read in the serial connection.
+            Need to create a timeout to avoid infinite wait."""
+        if self.no_connection():    return
+        
+        print("Waiting ... ", end="")
+        if float(serial.__version__) >= 3.0:
+            while self.ser.in_waiting == 0:
+                print("\nWaiting ... ", end="")
+                time.sleep(period)
+        else:
+            while self.ser.inWaiting() == 0:
+                print("\nWaiting ... ", end="")
+                time.sleep(period)
+        print("Finished")
+
+    def flush_read(self):
+        """Flushes everything that remains to be read."""
+        print("Entered flushing ... ", end="")
+        char = self.ser.read().decode()
+        while char != "":
+            print(char, end="")
+            char = self.ser.read().decode()
+        print(" Exited flushing.")
+
+    def send_command(self, command):
+        """Writes a message to an existing serial connection.
+            Accepts both strings and character arrays."""
+        print("Sent command ... ", end="")
+        self.ser.write(str(len(command)).encode('utf-8'))
+        for char in command:
+            self.ser.write(char.encode('utf-8'))
+        time.sleep(1.0)
+        print("Finished.")
+
+    def read_message(self):
+        """Reads a message from an existing serial connection."""
+        print("Read attempt ... ", end="")
+        message = ""
+        char = self.ser.read().decode()
+            
+        if char != "":
+            for _ in range(int(char)):
+                #print(self.ser.read())
+                message += self.ser.read().decode()
+            print("Message: ", message)
+            return message
+        print("Nothing")
+        return None
 
     def move(self, direction, period):
-        if self.arduino == None:
-            print('No Arduino was initialized')
-            return
+        """Sends command to move in direction for given period."""
+        if self.no_connection(): return
 
-        message = '0' + direction + str(period)
-        self.arduino.write(message.encode('utf-8'))    # need the bytes of the char
+        command = '0' + direction + str(period)
+        self.send_command(command)
+
+    def water(self, period=10):
+        """Sends command to water for a given period."""
+        if self.no_connection(): return
+
+        command = '1' + str(period)
+        self.send_command(command)
+
+    ##############################################################
+    '''End of tested code'''
+    ##############################################################
 
     def move_to_plant(self, cx, cy):
-        if self.arduino == None:
-            print('No Arduino was initialized')
-            return
+        if self.no_connection(): return
 
         dx = cx - self.curX
         dy = cy - self.curY
@@ -70,20 +142,10 @@ class Controller:
         else:
             self.move('u', dy * (-1) / self.turnSpeed)
 
-    def water(self, period=10):
-        if self.arduino == None:
-            print('No Arduino was initialized')
-            return
-
-        message = '0' + str(period)
-        self.arduino.write(message.encode('utf-8'))
-
     def water_cycle(self):
         """Cycle through plant locations and water plants. Does not water if last water was less than
             one hour ago."""
-        if self.arduino == None:
-            print('No Arduino was initialized')
-            return
+        if self.no_connection(): return
 
         if isinstance(self.lastWater, int) and time.time() - self.lastWater < 3600:
             return      # 3600 seconds = 1 hour
@@ -97,8 +159,6 @@ class Controller:
         self.move_to_plant(0, 0)        # return to top left
 
     def kill_weed(self, pixelLocation):
-        if self.arduino == None:
-            print('No Arduino was initialized')
-            return
-
+        if self.no_connection(): return
+        
         # self.move()
