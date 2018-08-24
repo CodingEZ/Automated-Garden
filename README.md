@@ -37,21 +37,25 @@ together, and ultimately see some promising results.
 
 ```from Image import ImageControl```
 ```imgControl = ImageControl.Controller()```
+
 Creating a new instance of the Controller will immediately create two objects, 
 a Drawer and an Editor. The Drawer handles all drawing and outline 
 functions with opencv. The Editor creates different thresholds for image 
 processing, and calls the Grip pipeline object for filtering.
 
 ```imgControl.image_grab()```
+
 Must be called in order to initialize the image. Can use a given image in the Camera
 folder or can take an image with a given camera.
 
 ```imgControl.find_plants()```
+
 Finds a plant and weeds based on default thresholds. Future edits will allow for 
 changes. Currently, the center-most object is identified as a plant, and all other 
 objects identified as weeds. 
 
 ```imgControl.draw_all()```
+
 Outlines the plant in green and the weeds in blue, and displays the result.
 
 ## ArduinoControl.Controller Class
