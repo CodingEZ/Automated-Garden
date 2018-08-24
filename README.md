@@ -1,4 +1,4 @@
-# Weed-Detection
+# Arduino Garden
 
 The following program detects weeds and plants, implementing OpenCV 
 to threshold and find the edges of green objects. As of right now, 
