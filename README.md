@@ -62,38 +62,38 @@ Once the libraries are install, attempt to run some of the test files in the 'Te
 
 ## ImageControl.Controller Class
 
-```from Image import ImageControl```
-```imgControl = ImageControl.Controller()```
+```from Image import ImageControl``` <br />
+```imgControl = ImageControl.Controller()``` <br />
 
 Creating a new instance of the Controller will immediately create two objects, 
 a Drawer and an Editor. The Drawer handles all drawing and outline 
 functions with opencv. The Editor creates different thresholds for image 
 processing, and calls the Grip pipeline object for filtering.
 
-```imgControl.image_grab()```
+```imgControl.image_grab()``` <br />
 
 Must be called in order to initialize the image. Can use a given image in the Camera
 folder or can take an image with a given camera.
 
-```imgControl.find_plants()```
+```imgControl.find_plants()``` <br />
 
 Finds a plant and weeds based on default thresholds. Future edits will allow for 
 changes. Currently, the center-most object is identified as a plant, and all other 
 objects identified as weeds. 
 
-```imgControl.draw_all()```
+```imgControl.draw_all()``` <br />
 
 Outlines the plant in green and the weeds in blue, and displays the result.
 
 ## ArduinoControl.Controller Class
 
-```from Arduino import ArduinoControl```
-```arduinoControl = ArduinoControl.Controller()```
+```from Arduino import ArduinoControl``` <br />
+```arduinoControl = ArduinoControl.Controller()``` <br />
 
 Creating an instance of Controller opens up serial communication with an Arduino.
 More testing will improve the consistency of the connection.
 
-```arduinoControl.water_cycle()```
+```arduinoControl.water_cycle()``` <br />
 
 Commands such as watering are still being determined.
 
