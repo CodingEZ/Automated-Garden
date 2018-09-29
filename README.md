@@ -49,10 +49,10 @@ Be very careful about pushing edits, as they will affect everyone who pulls in t
 
 OpenCV, Pyserial, and PyQt5 can be installed by the 'pip install' or 'pip3 install' command. The commands should be input in terminal. If you have multiple versions of Python installed, make sure to use the correct version of pip.
 
-```pip3 install opencv-python```
-```pip3 install pyserial```
-```pip3 install pyqt5```
-```pip3 install pillow```
+```pip3 install opencv-python``` <br />
+```pip3 install pyserial``` <br />
+```pip3 install pyqt5``` <br />
+```pip3 install pillow``` <br />
 
 In the case that you don't have pip, go to the Python packages library (https://pypi.org/) and download the desired library (usually a wheel file). Once downloaded, extarct the file and attempt to import the library. If that fails as well, place the library contents in the site-packages directory of your Python distribution and attempt the import again. If all fails, contact us.
 
