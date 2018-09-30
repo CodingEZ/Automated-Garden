@@ -36,12 +36,16 @@ together, and ultimately see some promising results.
 
 ## Github and Github Desktop
 
-First, make a Github account, then download Github Desktop (https://desktop.github.com/) 
-on your computer. Sign into Github desktop with your Github account information and clone 
-this project into . You should make changes to the files on your local machine, then use 
+To get started with this project:
+1. Make a Github account
+2. Download and install Github Desktop (https://desktop.github.com/) on your computer. 
+3. Sign into Github desktop with your Github account information. 
+4. Select File -> Clone Repository to clone (make a copy of) this project onto your desktop. 
+
+You can now make changes to the files on your local machine, then use 
 Github Desktop to send those edits to the Github repository here.
 
-To save changes here
+To save changes to the shared repository on Github:
 1. Open Github Dekstop on your computer and select the correct repository. You should see 
 that change have been made if you made local changes.
 2. A summary (name) for the edits is required, so name your edits, preferable with your 
@@ -65,20 +69,26 @@ make sure to use the correct version of pip.
 
 In the case that you don't have pip or the above commands produce the error "pip is not 
 recognized", you can follow these steps:
+
 1. Go to the Python packages library (https://pypi.org/)
+
 2. Download the desired library (usually a wheel file)
+
 3. If you don't have 7-zip or some kind of file extraction program that can deal with wheel 
 files, you can download 7-zip at https://www.7-zip.org/download.html. Choose the distribution 
 that fits your machine and install it.
+
 4. Once you have 7-zip and have downloaded the library, extract the file with 7-zip. Right 
 click the downloaded file, hover over "7-zip," and select "Extract Files." the following link 
 provides a visual and might be helpful: https://www.newsgroupreviews.com/7-zip-extract-unrar.html.
+
 5. Attempt to import the library on the command line in the Python IDLE shell, in Pyzo, and 
-whatever Python editor you prefer. The commands are: <br />
+whatever Python editor you prefer. The commands are: <br /><br />
     a. opencv-python - ```import cv2``` <br />
     b. pyserial - ```import serial``` <br />
     c. pyqt5 - ```import PyQt5``` <br />
-    d. pillow - ```import PIL``` <br />
+    d. pillow - ```import PIL``` <br /><br />
+    
 6. If step 5 fails for any particular library, place the library contents of that library in 
 the site-packages directory of your Python distribution and attempt to import again. If all fails, 
 contact us.
