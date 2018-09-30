@@ -74,11 +74,11 @@ that fits your machine and install it.
 click the downloaded file, hover over "7-zip," and select "Extract Files." the following link 
 provides a visual and might be helpful: https://www.newsgroupreviews.com/7-zip-extract-unrar.html.
 5. Attempt to import the library on the command line in the Python IDLE shell, in Pyzo, and 
-whatever Python editor you prefer. The commands are:
-    a. opencv-python - ```import cv2```
-    b. pyserial - ```import serial```
-    c. pyqt5 - ```import PyQt5```
-    d. pillow - ```import PIL```
+whatever Python editor you prefer. The commands are: <br />
+    a. opencv-python - ```import cv2``` <br />
+    b. pyserial - ```import serial``` <br />
+    c. pyqt5 - ```import PyQt5``` <br />
+    d. pillow - ```import PIL``` <br />
 6. If step 5 fails for any particular library, place the library contents of that library in 
 the site-packages directory of your Python distribution and attempt to import again. If all fails, 
 contact us.
