@@ -24,7 +24,8 @@ together, and ultimately see some promising results.
 4. pillow (image resizing)
 5. PyQt5 (for the Raspberry Pi interface)
 
-    For more specific directions: https://raspberrypi.stackexchange.com/questions/62939/pyqt5-on-a-raspberry-pi
+    For more specific directions: 
+    https://raspberrypi.stackexchange.com/questions/62939/pyqt5-on-a-raspberry-pi
     
     PyQt4 is also possible, though the entire interface must be edited for that
     
@@ -35,28 +36,55 @@ together, and ultimately see some promising results.
 
 ## Github and Github Desktop
 
-First, make a Github account, then download Github Desktop (https://desktop.github.com/) on your computer. Sign into Github desktop with your Github account information and clone this project into . You should make changes to the files on your local machine, then use Github Desktop to send those edits to the Github repository here.
+First, make a Github account, then download Github Desktop (https://desktop.github.com/) 
+on your computer. Sign into Github desktop with your Github account information and clone 
+this project into . You should make changes to the files on your local machine, then use 
+Github Desktop to send those edits to the Github repository here.
 
 To save changes here
-1. Open Github Dekstop on your computer and select the correct repository. You should see that change have been made if you made local changes.
-2. A summary (name) for the edits is required, so name your edits, preferable with your name or username at the start
+1. Open Github Dekstop on your computer and select the correct repository. You should see 
+that change have been made if you made local changes.
+2. A summary (name) for the edits is required, so name your edits, preferable with your 
+name or username at the start
 3. Commit edits with the "commit to master" button
 4. Click the "Push to Origin" button in the top center of Github Desktop
 
-Be very careful about pushing edits, as they will affect everyone who pulls in the repository. Pulling edits is done by pressing the "Fetch Origin" button.
+Be very careful about pushing edits, as they will affect everyone who pulls in the 
+repository. Pulling edits is done by pressing the "Fetch Origin" button.
 
 ## Library Installation
 
-OpenCV, Pyserial, and PyQt5 can be installed by the 'pip install' or 'pip3 install' command. The commands should be input in terminal. If you have multiple versions of Python installed, make sure to use the correct version of pip.
+OpenCV, Pyserial, and PyQt5 can be installed by the 'pip install' or 'pip3 install' command. 
+The commands should be input in terminal. If you have multiple versions of Python installed, 
+make sure to use the correct version of pip.
 
 ```pip3 install opencv-python``` <br />
 ```pip3 install pyserial``` <br />
 ```pip3 install pyqt5``` <br />
 ```pip3 install pillow``` <br />
 
-In the case that you don't have pip, go to the Python packages library (https://pypi.org/) and download the desired library (usually a wheel file). Once downloaded, extarct the file and attempt to import the library. If that fails as well, place the library contents in the site-packages directory of your Python distribution and attempt the import again. If all fails, contact us.
+In the case that you don't have pip or the above commands produce the error "pip is not 
+recognized", you can follow these steps:
+1. Go to the Python packages library (https://pypi.org/)
+2. Download the desired library (usually a wheel file)
+3. If you don't have 7-zip or some kind of file extraction program that can deal with wheel 
+files, you can download 7-zip at https://www.7-zip.org/download.html. Choose the distribution 
+that fits your machine and install it.
+4. Once you have 7-zip and have downloaded the library, extract the file with 7-zip. Right 
+click the downloaded file, hover over "7-zip," and select "Extract Files." the following link 
+provides a visual and might be helpful: https://www.newsgroupreviews.com/7-zip-extract-unrar.html.
+5. Attempt to import the library on the command line in the Python IDLE shell, in Pyzo, and 
+whatever Python editor you prefer. The commands are:
+    a. opencv-python - ```import cv2```
+    b. pyserial - ```import serial```
+    c. pyqt5 - ```import PyQt5```
+    d. pillow - ```import PIL```
+6. If step 5 fails for any particular library, place the library contents of that library in 
+the site-packages directory of your Python distribution and attempt to import again. If all fails, 
+contact us.
 
-Once the libraries are install, attempt to run some of the test files in the 'Test' folder of this repository. If there are no errors, you are set to go!
+Once the libraries are installed, attempt to run some of the test files in the 'Test' folder of 
+this repository. If there are no errors, you are set to go!
 
 # How to use this repo
 
