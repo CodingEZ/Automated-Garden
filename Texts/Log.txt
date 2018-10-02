@@ -1,6 +1,4 @@
 Logging File
 
 Water : 08/06/2018 22:59:37
-Weed Detection : 08/07/2018 01:36:41
-Pesticide : 09/19/2018 18:00:02
-Weed Detection : 09/19/2018 18:01:49
+
