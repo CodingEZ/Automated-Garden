@@ -100,6 +100,18 @@ contact us.
 Once the libraries are installed, attempt to run some of the test files in the 'Test' folder of 
 this repository. If there are no errors, you are set to go!
 
+## Running Some Tests
+
+To make sure that you've followed instructions correctly, try to run some of the tests. The two 
+tests are located within the "Tests" folder. The first test is called "Test-ImageGrab," which 
+tests the reading capabilities of OpenCV. Play around and see if you can take a live picture 
+with your laptop's built-in camera.
+
+The second test is "Test-Threshold," which is an example of one way to threshold the image.
+There are many ways to threshold, so don't be afraid to play around with the different thresholds.
+A quick example is located here: https://medium.com/@ckyrkou/color-thresholding-in-opencv-91049607b06d.
+You can also look into OpenCV masks and contours. The OpenCV docs are here: https://docs.opencv.org/3.4.1/.
+
 # How to use this repo
 
 ## ImageControl.Controller Class
