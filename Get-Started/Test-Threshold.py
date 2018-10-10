@@ -2,7 +2,7 @@ from Image import ImageControl
 
 imgControl = ImageControl.Controller()
 
-imgName = "5.jpg"
+imgName = "2.jpg"
 cameraNum = 0
 
 imgControl.image_grab(imgName, cameraNum)
