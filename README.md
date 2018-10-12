@@ -94,7 +94,9 @@ whatever Python editor you prefer. The commands are: <br /><br />
     d. pillow - ```import PIL``` <br /><br />
     
 6. If step 5 fails for any particular library, place the library contents of that library in 
-the site-packages directory of your Python distribution and attempt to import again. If all fails, 
+the site-packages directory of your Python distribution and attempt to import again. If you are
+installing OpenCV on a Mac and you succeeded in pip installing but fail to import cv2, try the 
+directions here: https://www.learnopencv.com/install-opencv3-on-macos/. If all fails, 
 contact us.
 
 Once the libraries are installed, attempt to run some of the test files in the 'Test' folder of 
