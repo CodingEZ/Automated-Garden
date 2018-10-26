@@ -28,14 +28,14 @@ threshold_hsl = cv2.inRange(img_hsl,
                             (hue[0], luminance[0], saturation[0]),
                             (hue[1], luminance[1], saturation[1]))
 
+"""
 cv2.imshow('threshold_rgb', threshold_rgb)
+cv2.waitKey(0)
 cv2.imshow('threshold_hsl', threshold_hsl)
-cv2.waitKey(100)
-
+cv2.waitKey(0)
 """
-self.__mask_1_input = source0
-self.__mask_1_mask = self.hsl_threshold_output
-(self.mask_1_output) = self.__mask(self.__mask_1_input, self.__mask_1_mask)
 
-cv2.bitwise_and(img, img, mask=threshold_rgb)
-"""
+img_masked1 = cv2.bitwise_and(img, img, mask=threshold_rgb)
+img_masked2 = cv2.bitwise_and(img_masked1, img_masked1, mask=threshold_hsl)
+cv2.imshow('img_masked', img_masked2)
+cv2.waitKey(0)
