@@ -10,9 +10,9 @@ def image_grab(imgName, cameraNum):
         cap.release()  # When everything done, release the capture
     else:
         img = cv2.imread(imgName)
-        
+
     cv2.imshow("img", img)
 
-image_grab("2.jpg", None)
-#image_grab(None, 0)
+#image_grab("2.jpg", None)
+image_grab(None, 0)
 #image_grab(None, 1)

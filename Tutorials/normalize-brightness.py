@@ -47,7 +47,7 @@ def scale_brightness(img):
     height,width, channels = imgc.shape
     #currBright = avg (imgc)
     #c = scalar(goalBright, currBright)
-    c=1.5
+    c = 1.3
     for w in range (width):
         for h in range (height):
             imgc [h][w][0] = imgc [h][w][0] * c
@@ -59,14 +59,15 @@ def scale_brightness(img):
     return imgc
 
 img = cv2.imread('2.jpg', 1)
-print(avg_non_black(img))
 cv2.imshow("bit", img)
 cv2.waitKey(0)
+print(avg_non_black(img))
 
+img = scale_brightness(img)
 img_change1 = mask_by_rgb(img, (0, 255), (10, 255), (0, 255))
-print(avg_non_black(img_change1))
 cv2.imshow("bit", img_change1)
 cv2.waitKey(0)
+print(avg_non_black(img_change1))
 
 """
 hue = [20, 180.0]
