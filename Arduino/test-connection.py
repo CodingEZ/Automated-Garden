@@ -1,40 +1,9 @@
-import time
 import serial
+import time
 
-# keep everything consistent (seconds?, centimeters?)
-
-# command list:
-#   0 : move
-#       char: direction
-#           u : up
-#           d : down
-#           l : left
-#           r : right
-#       number : ?
-#           time (seconds) to move
-#           could also use distance
-#   1 : water
-#       number : time (seconds) to water
-
-
-class Controller:
+class Controller():
 
     def __init__(self):
-        """Calibration and set-up of all variables. Only one instance of the
-            controller should be maintained."""
-        self.lastWater = None
-        self.waterInterval = 10  # minutes, should change to seconds
-        self.minInterval = 10
-        self.maxInterval = 20
-
-        self.gridSize = (4, 4)
-        self.squareDimensions = (15, 15)        # in centimeters
-        self.curX = 0           # starting coordinate x
-        self.curY = 0           # starting coordinate y
-        self.unitX = 180        # 1 x-stepper motor turn = unit_x pixels
-        self.unitY = 180        # same for y
-        self.turnSpeed = 00     # cm per second, CURRENTLY UNKNOWN
-
         self.ser = None
         self.make_connection()
 
@@ -140,41 +109,27 @@ class Controller:
         command = '1' + str(period)
         self.send_command(command)
 
-    ##############################################################
-    '''End of tested code'''
-    ##############################################################
 
-    def move_to_plant(self, cx, cy):
-        self._check_connection()
+if __name__ == '__main__':
+    def test_response(command, timeout=2):
+        print("Start of serial communication test!")
+        control = Controller()
 
-        dx = cx - self.curX
-        dy = cy - self.curY
-        if dx > 0:
-            self.move('r', dx / self.turnSpeed)
-        else:
-            self.move('l', dx * (-1) / self.turnSpeed)
-        if dy > 0:
-            self.move('d', dy / self.turnSpeed)
-        else:
-            self.move('u', dy * (-1) / self.turnSpeed)
+        if control.is_connected():
+            control.send_command(command)
+            message = control.read_message()
+            print("Message: ", message)
+            
+            control.close_connection()
+        print("End of serial communication test!\n")
 
-    def water_cycle(self):
-        """Cycle through plant locations and water plants. Does not water if last water was less than
-            one hour ago."""
-        self._check_connection()
 
-        if isinstance(self.lastWater, int) and time.time() - self.lastWater < 3600:
-            return      # 3600 seconds = 1 hour
+    # no error if serial port is closed and opened again,
+    # error if serial port kept open
 
-        self.move_to_plant(0, 0)        # start at the top left and work down
-        for row in range(self.gridSize[0]):
-            for col in range(self.gridSize[1]):
-                self.move_to_plant(col, row)       # x relates to column number, y relates to row number
-                self.water()
-        self.lastWater = time.time()
-        self.move_to_plant(0, 0)        # return to top left
+    command1 = ['0', 'r', '2']
+    test_response(command1)
 
-    def kill_weed(self, pixelLocation):
-        self._check_connection()
-        
-        # self.move()
+    command2 = ['1', 'r', '2']
+    test_response(command2)
+

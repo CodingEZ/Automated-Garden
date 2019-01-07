@@ -46,7 +46,6 @@ int forward_ticks = 2000;
 //ground the other wire of the limit switch, and one to the signal input
 void setup() {
   //setup only runs once when the Arduino starts up
-  //don't change!
   Serial.begin(9600);
   pinMode(X_MIN_PIN, INPUT_PULLUP);
   pinMode(X_MAX_PIN, INPUT_PULLUP);
@@ -84,11 +83,26 @@ void setup() {
   digitalWrite(Z_ENABLE_PIN    , LOW);
   digitalWrite(E_ENABLE_PIN    , LOW);
   digitalWrite(Q_ENABLE_PIN    , LOW);
+
+  int X_pins[2];
+  int X_limit_switch_result[2];
+
+  X_pins[0] = X_MIN_PIN;  //target pin
+  X_pins[1] = X_MAX_PIN;  //opposite pin
 }
 
 void loop() {
   //loop() runs again and again
-  delay(20000);//wait for a while between each iteration of the loop
+  limit_switch_hit(X_pins, X_limit_switch_result);
+  if (!X_limit_switch_result[0]) {
+  
+  } else if (X_limit_switch_result[1] {
+    move_backward(X_DIR_PIN, X_STEP_PIN);
+    delay(1000);
+  } else {
+    move_forward(X_DIR_PIN, X_STEP_PIN);
+    delay(1000);
+  }
 }
 
 // to run your functions, call it in loop()
@@ -100,33 +114,55 @@ void loop() {
 // task 6 (put it all together): write a function that takes in the name of motor, number of ticks, delay time as the inputs. Make sure e-stop is enabled.
 
 //Useful Tips:
-//  // 1. basic forward and reverse motion control:
-//  digitalWrite(Y_DIR_PIN,HIGH); // Enables the motor to move in a particular direction
-//  // Makes 200 pulses for making one full cycle rotation
-//  //example of how to move the motor shaft forward then backwards
-//  for(int x = 0; x < forward_ticks; x++) {
-//    digitalWrite(Y_STEP_PIN,HIGH); 
-//    delayMicroseconds(forward_delay);//this delay dictates how fast it goes
-//    digitalWrite(Y_STEP_PIN,LOW); 
-//    delayMicroseconds(forward_delay);
-//  }
-//  delay(1000); // One second delay
-//  digitalWrite(Y_DIR_PIN, LOW);//turn off the direction pin voltage to switch to reverse direction
-//    for(int x = 0; x < reverse_ticks; x++) {
-//    digitalWrite(Y_STEP_PIN,HIGH); 
-//    delayMicroseconds(reverse_delay); 
-//    digitalWrite(Y_STEP_PIN,LOW); 
-//    delayMicroseconds(reverse_delay);
-//  }
+// 1. basic forward and reverse motion control:
 
-  // //2. basic printing pin value example
-  //int signal = digitalRead(X_MIN_PIN);
-  //Serial.println(signal);
-
-void task1() {
+void print_signal(int pin) {
+  //2. basic printing pin value example
+  int signal = digitalRead(pin);
+  Serial.println(signal);
 }
 
-void task2() {
+void move_forward(int dir_pin, int step_pin) {
+  digitalWrite(dir_pin, HIGH); // Enables the motor to move in a particular direction
+  // Makes 200 pulses for making one full cycle rotation
+  //example of how to move the motor shaft forward then backwards
+  for (int x = 0; x < forward_ticks; x++) {
+    digitalWrite(step_pin, HIGH); 
+    delayMicroseconds(forward_delay);//this delay dictates how fast it goes
+    digitalWrite(step_pin, LOW); 
+    delayMicroseconds(forward_delay);
+  }
+  //print_signal(min_pin);
+  //print_signal(max_pin);
+}
+
+void move_backward(int dir_pin, int step_pin) {
+  digitalWrite(dir_pin, LOW); //turn off the direction pin voltage to switch to reverse direction
+  for (int x = 0; x < reverse_ticks; x++) {
+    digitalWrite(step_pin, HIGH); 
+    delayMicroseconds(reverse_delay); 
+    digitalWrite(step_pin, LOW); 
+    delayMicroseconds(reverse_delay);
+  }
+  //print_signal(min_pin);
+  //print_signal(max_pin);
+}
+
+void limit_switch_hit(int pins[], int limit_result[]) {
+  if (digitalRead(pins[0])) {
+    if (digitalRead(pins[1])) {
+      limit_result[0] = false;
+      limit_result[1] = false;
+    } else {
+      limit_result[0] = true;
+      limit_result[1] = true;
+    }
+    int hold = pins[0];
+    pins[0] = pins[1];
+    pins[1] = hold;
+  }
+  limit_result[0] = true;
+  limit_result[1] = false;
 }
 
 void task3() {
