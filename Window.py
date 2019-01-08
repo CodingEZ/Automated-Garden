@@ -55,6 +55,8 @@ class Window(QWidget):
         except OSError:
             Display.displayWarning(self, 'Failed to load "Texts/Log.txt" file. Was it corrupted?')
 
+        # rest of code needs to be edited
+
         self.labels = []
         self.labelDict = dict()
         self.initLabels()
@@ -233,7 +235,7 @@ class Window(QWidget):
 
     @pyqtSlot()
     def onClickDetectWeeds(self):
-        imgName = '5.jpg'
+        imgName = '2.jpg'
         cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
 
         imgControl.image_grab(imgName, cameraNum)

@@ -1,5 +1,6 @@
-from . import Drawer as d
-from . import Pointer as p
+from . import BrightnessEditor as b
+from . import GripEditor as g
+import cv2
 
 
 class Controller:
@@ -48,13 +49,64 @@ class Controller:
         (height, width, channels) = img.shape
         self.center = (width/2, height/2)
 
+    def get_contours(self):
+        return g.GripPipeline().process(self.img)
+
+    def sum_contour_areas(self):
+        contour_sum = 0
+        for contour in self.contours:
+            contour_sum += cv2.contourArea(contour)
+        return contour_sum
+
+    @staticmethod
+    def get_centroid(contour):
+        M = cv2.moments(contour)
+        if M is not None:
+            # error in calculating centroid
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+            return cX, cY
+        else:
+            return None
+
+    def get_all_centroids(self):
+        centroids = []
+        for contour in self.contours:
+            centroid = __class__.get_centroid(contour)
+            if centroid is not None:
+                centroids.append(centroid)
+        return centroids
+
+    def differentiate_plants(self):
+        def distance(point1, point2):
+            return (point1[0] - point2[0])**2 + (point1[1] - point2[1])**2
+
+        plant = None
+        weeds = []
+        minDistance = self.center[0]**2 + self.center[1]**2
+        for (point, contour) in zip(self.centroids, self.contours):
+            newDistance = distance(self.center, point)
+            if newDistance < minDistance:
+                if plant is not None:
+                    weeds.append(plant)
+                minDistance = newDistance
+                plant = contour
+            else:
+                weeds.append(contour)
+        return plant, weeds
+
     def find_plants(self):
-        self.contours = p.get_contours(self.img)
-        self.centroids = p.get_all_centroids(self.contours)
-        self.plant, self.weeds = p.get_plants(self.contours, self.centroids, self.center)
-    
+        self.contours = self.get_contours()
+        ratio = self.sum_contour_areas() / self.img.size
+        print('Contour ratio: ', ratio)
+
+        self.img = b.adjust_brightness(self.img, ratio)
+        self.contours = self.get_contours()
+        self.centroids = self.get_all_centroids()
+        self.plant, self.weeds = self.differentiate_plants()
+
     def draw_all(self):
-        d.outline_weeds(self.imgOutlined, self.weeds)
-        d.outline_plant(self.imgOutlined, self.plant)
-        d.show_img(self.imgOutlined)
+        cv2.drawContours(self.imgOutlined, self.weeds, -1, (255, 0, 0), 2)
+        cv2.drawContours(self.imgOutlined, [self.plant], -1, (0, 255, 0), 2)
+        cv2.imshow('Img', self.imgOutlined)
 
