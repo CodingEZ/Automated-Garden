@@ -10,8 +10,8 @@ DEFAULT_GAMMA = 1     # saturation factor, keep under 5, 1 does nothing
 TARGET_BRIGHTNESS = 50 / .015
 TEST_INCREMENTAL = True
 
-def perceived_brightness(IMG_FILE):
-    img = Image.open(IMG_FILE)
+def perceived_brightness(img_name):
+    img = Image.open(img_name)
     stat = ImageStat.Stat(img)
     r,g,b = stat.mean
     return math.sqrt(0.241*(r**2) + 0.691*(g**2) + 0.068*(b**2))
@@ -31,7 +31,7 @@ def basic_linear_transform(img, alpha, beta):
 def gamma_correction(img, gamma):
     lookUpTable = np.empty((1,256), np.uint8)
     for i in range(256):
-        lookUpTable[0,i] = np.clip(pow(i / 255.0, gamma) * 255.0, 0, 255)
+        lookUpTable[0, i] = np.clip(pow(i / 255.0, gamma) * 255.0, 0, 255)
 
     img_gamma_corrected = cv2.LUT(img, lookUpTable)
     return img_gamma_corrected
@@ -70,9 +70,9 @@ def adjust_brightness(img_original, ratio):
 if __name__ == '__main__':
     IMG_FILE = '2.jpg'
     #IMG_FILE = '1521224317.jpg'
-    img_original = cv2.imread(IMG_FILE)
-    new_img2 = adjust_brightness(img_original, .015)
+    img_first = cv2.imread(IMG_FILE)
+    img_new = adjust_brightness(img_first, .015)
     
-    cv2.imshow("Gamma correction", new_img2)
-    cv2.imshow("No correction", img_original)
+    cv2.imshow("Gamma correction", img_new)
+    cv2.imshow("No correction", img_first)
     cv2.waitKey()
