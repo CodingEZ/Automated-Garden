@@ -2,42 +2,36 @@
 import sys
 import time
 
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtCore import pyqtSlot  # for the buttons
 from PyQt5.QtWidgets import QInputDialog, QLineEdit  # for input boxes
-from PyQt5.QtWidgets import QWidget  # for creating the window
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QGridLayout, QStackedLayout
+from PyQt5.QtWidgets import QWidget, QMainWindow, QApplication
+from PyQt5.QtWidgets import QPushButton, QLabel
+from PyQt5.QtGui import QImage, QPalette, QBrush
 
-import Background
-import Button
+import Resize
 import Display
-import Label
-from Arduino import ArduinoControl
 from Image import ImageControl
+from Arduino import ArduinoControl
 
 imgControl = ImageControl.Controller()
 arduinoControl = ArduinoControl.Controller()
 
 
-class Window(QWidget):
+class Window(QMainWindow):
 
-    largeStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 14pt; }"
-    mediumStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 11pt; }"
-    smallStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 9pt; }"
-
-    def __init__(self, application, width=1000, height=800):
+    def __init__(self, width=500, height=400):
         super().__init__()
-        self.app = application
 
-        self.title = 'Sustainable Earth Arduino Garden'
         self.left = 200
         self.top = 100
-        self.width = self.left + width
-        self.height = self.top + height
-        self.background = 'Logos/back.jpg'
+        self.sw = self.left + width     # screen width
+        self.sh = self.top + height     # screen height
+        self.bw = 200                   # button width
+        self.bh = 50                    # button height
 
-        self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
-        Background.load_background(self)
-        self.show()
+        self.setGeometry(self.left, self.top, self.sw, self.sh)
 
         self.aboutText = None
         try:
@@ -55,148 +49,260 @@ class Window(QWidget):
         except OSError:
             Display.displayWarning(self, 'Failed to load "Texts/Log.txt" file. Was it corrupted?')
 
-        # rest of code needs to be edited
+        # load all menus here
+        menus = []
+        menus.append(self.loadMainMenu())
+        menus.append(self.loadCommandsMenu())
+        menus.append(self.loadSettingsMenu())
+        menus.append(self.loadAboutMenu())
+        menus.append(self.loadControlsMenu())
 
-        self.labels = []
-        self.labelDict = dict()
-        self.initLabels()
+        # this layout holds widgets for the application
+        self.stacked_layout = QStackedLayout()
 
-        self.buttons = []
-        self.buttonDict = dict()
-        self.initButtons()
+        # add widgets
+        for menu in menus:
+            self.stacked_layout.addWidget(menu)
 
-        self.initStartMenu()  # begin application in the start menu
+        # initialize the central widget
+        self.widget_central = QWidget()
+        self.widget_central.setLayout(self.stacked_layout)
+        self.setCentralWidget(self.widget_central)
 
-    def initLabels(self):
+        # Start with the main menu
+        self.switch_main()
 
-        self.labelDict['startMenu'] = [Label.showText(self, 1 / 2, 1 / 4, 3 / 4, 1 / 8, 10,
-                            __class__.largeStyle, 'Sustainable Earth Arduino Garden')
-                       ]
-        self.labelDict['commandsMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
-                            __class__.largeStyle, 'Garden Command Center'),
-                      Label.showText(self, 1 / 3, 1 / 2, 1 / 2, 14 / 25, 10,
-                            __class__.smallStyle, self.logText)
-                      ]
-        self.labelDict['settingsMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
-                            __class__.largeStyle, 'General Settings')
-                      ]
-        self.labelDict['aboutMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
-                            __class__.largeStyle, 'About'),
-                       Label.showText(self, 1 / 2, 1 / 2, 3 / 5, 1 / 3, 10,
-                            __class__.smallStyle, self.aboutText)
-                       ]
-        self.labelDict['commandSettingsMenu'] = [Label.showText(self, 1 / 2, 1 / 8, 1 / 2, 1 / 12, 10,
-                                __class__.largeStyle, 'Garden Water Settings'),
-                         Label.showText(self, 1 / 3, 16 / 36, 1 / 3, 1 / 20, 10, __class__.smallStyle,
-                                'Watering Interval: %d minutes' % arduinoControl.waterInterval),
-                         ]
+        # load background
+        #self.background = 'Logos/back.jpg'
+        #label_background = QLabel(self.widget_central)
+        #name = Resize.resize_image(self.background, (self.sw, self.sh))
+        #pixmap = QPixmap(name)
+        #label_background.setPixmap(pixmap)
 
-    def initButtons(self):
-        # BI stands for Button Information
+        #background = QImage('Logos/back.jpg').scaled(QSize(self.sw, self.sh))
+        #palette = QPalette()
+        #palette.setBrush(10, QBrush(background))                     # 10 = Windowrole
+        #self.setPalette(palette)
 
-        startMenuBI = {
-            'Commands': ['Go to Commands Menu', self.initCommandsMenu],
-            'Settings': ['Go to Settings Menu', self.initSettingsMenu],
-            'About': ['Information about this software', self.initAboutMenu],
-            'Quit': ['Exit the Application', self.onClickQuit]
-        }
+        # Show the window
+        self.show()
 
-        commandsMenuBI = {
-            'Water' : ['Begins watering', self.onClickWater],
-            'Detect Weeds': ['Sends the command to detect weeds', self.onClickDetectWeeds],
-            'Apply Pesticide': ['Sends the command to apply pesticide', self.onClickPesticide],
-            'Change Settings': ['Change Settings', self.initCommandSettingsMenu],
-            'Back to Start': ['Returns to the Start Menu', self.initStartMenu]
-        }
 
-        settingsMenuBI = {
-            'Back to Start': ['Returns to the Start Menu', self.initStartMenu]
-        }
+#------------------------------------------------------------------------------------------------------------------
+# Menu Transitions
 
-        aboutMenuBI = {
-            'Back to Start': ['Returns to the Start Menu', self.initStartMenu],
-        }
+    def switch_main(self):
+        # Give window proper title
+        self.setWindowTitle('Main Menu')
+        self.stacked_layout.setCurrentIndex(0)
 
-        commandSettingsMenuBI = {
-            'Back': ['Return to the Commands Menu', self.initCommandsMenu]
-        }
+    def switch_commands(self):
+        # Give window proper title
+        self.setWindowTitle('Commands Menu')
+        self.stacked_layout.setCurrentIndex(1)
 
-        intervalBI = {
-            'Change Water Period': ['Change the interval at which \n' +
-                                    'this device waters plants.',
-                                    self.onClickChangeWaterInterval]
-        }
+    def switch_settings(self):
+        # Give window proper title
+        self.setWindowTitle('Settings Menu')
+        self.stacked_layout.setCurrentIndex(2)
 
-        self.buttonDict['startMenu'] = Button.createButtons(self, startMenuBI, 1 / 2, 1 / 2)
-        self.buttonDict['commandsMenu'] = Button.createButtons(self, commandsMenuBI, 13 / 16, 1 / 2)
-        self.buttonDict['settingsMenu'] = Button.createButtons(self, settingsMenuBI, 1 / 2, 1 / 2)
-        self.buttonDict['aboutMenu'] = Button.createButtons(self, aboutMenuBI, 1 / 2, 2 / 3)
-        self.buttonDict['commandSettingsMenu'] = (Button.createButtons(self, commandSettingsMenuBI, 1 / 2, 1 / 4) +
-                                                  Button.createButtons(self, intervalBI, 2 / 3, 15 / 32)
-                                                  )
+    def switch_about(self):
+        # Give window proper title
+        self.setWindowTitle('About Menu')
+        self.stacked_layout.setCurrentIndex(3)
 
-##############################################################
-    # Menu Initializers
-##############################################################
+    def switch_controls(self):
+        # Give window proper title
+        self.setWindowTitle('Controls Menu')
+        self.stacked_layout.setCurrentIndex(4)
 
-    def initStartMenu(self):
-        # Labels first
-        Label.hideLabels(self.labels)
-        self.labels = self.labelDict['startMenu']
-        Label.showLabels(self.labels)
+#------------------------------------------------------------------------------------------------------------------
+# Load Functions
 
-        # Buttons second
-        Button.hideButtons(self.buttons)
-        self.buttons = self.buttonDict['startMenu']
-        Button.showButtons(self.buttons)
+    def loadMainMenu(self):
+        # ---- Initialize smallest components ---------------------------------------------------------------------
+        button_list = []
+        button_list.append(self.make_button('Commands', self.switch_commands, 'Go to Commands Menu'))
+        button_list.append(self.make_button('Settings', self.switch_settings, 'Go to Settings Menu'))
+        button_list.append(self.make_button('About', self.switch_about, 'Information about this software'))
+        button_list.append(self.make_button('Quit', self.onClickQuit, 'Exit the Application'))
 
-    def initCommandsMenu(self):
-        # Labels first
-        Label.hideLabels(self.labels)
-        self.labels = self.labelDict['commandsMenu']
-        Label.showLabels(self.labels)
+        # ---- Button Container -----------------------------------------------------------------------------------
+        
+        # setup layout for the buttons
+        layout_buttons = QVBoxLayout()
+        layout_buttons.setAlignment(Qt.AlignTop)
+        layout_buttons.setSpacing(0)
+        layout_buttons.setContentsMargins(0, 0, 0, 0)
+        for button in button_list:
+            layout_buttons.addWidget(button)
 
-        # Buttons second
-        Button.hideButtons(self.buttons)
-        self.buttons = self.buttonDict['commandsMenu']
-        Button.showButtons(self.buttons)
+        container_buttons = QWidget()
+        container_buttons.setFixedWidth(self.bw)
+        container_buttons.setLayout(layout_buttons)
 
-    def initSettingsMenu(self):
-        # Labels first
-        Label.hideLabels(self.labels)
-        self.labels = self.labelDict['settingsMenu']
-        Label.showLabels(self.labels)
+        # ---- Main Container -----------------------------------------------------------------------------------
+        
+        # add components to main layout
+        layout_main = QHBoxLayout()
+        layout_main.setAlignment(Qt.AlignLeft)
+        layout_main.addWidget(container_buttons)
 
-        # Buttons second
-        Button.hideButtons(self.buttons)
-        self.buttons = self.buttonDict['settingsMenu']
-        Button.showButtons(self.buttons)
+        # widget to be returned
+        container_main = QWidget()
+        container_main.setLayout(layout_main)
+        return container_main
 
-    def initAboutMenu(self):
-        # Labels first
-        Label.hideLabels(self.labels)
-        self.labels = self.labelDict['aboutMenu']
-        Label.showLabels(self.labels)
+    def loadCommandsMenu(self):
+        # ---- Initialize smallest components ---------------------------------------------------------------------
+        button_list = []
+        button_list.append(self.make_button('Water', self.onClickWater, 'Begins watering'))
+        button_list.append(self.make_button('Detect Weeds', self.onClickDetectWeeds, 'Sends the command to detect weeds'))
+        button_list.append(self.make_button('Apply Pesticide', self.onClickPesticide, 'Sends the command to apply pesticide'))
+        button_list.append(self.make_button('Change Controls', self.switch_controls, 'Change Controls'))
+        button_list.append(self.make_button('Back to Main Menu', self.switch_main, 'Returns to the Main Menu'))
 
-        # Buttons second
-        Button.hideButtons(self.buttons)
-        self.buttons = self.buttonDict['aboutMenu']
-        Button.showButtons(self.buttons)
+        # currently does not update itself
+        label_list = []
+        label_list.append(self.make_label(self.logText))
 
-    def initCommandSettingsMenu(self):
-        # Labels first
-        Label.hideLabels(self.labels)
-        self.labels = self.labelDict['commandSettingsMenu']
-        Label.showLabels(self.labels)
+        # ---- Label Container -------------------------------------------------------------------------------------
 
-        # Buttons
-        Button.hideButtons(self.buttons)
-        self.buttons = self.buttonDict['commandSettingsMenu']
-        Button.showButtons(self.buttons)
+        layout_labels = QVBoxLayout()
+        layout_labels.setAlignment(Qt.AlignTop)
+        layout_labels.setSpacing(0)
+        layout_labels.setContentsMargins(0, 0, 0, 0)
+        for label in label_list:
+            layout_labels.addWidget(label)
 
-##############################################################
-    # Clicking Functions
-##############################################################
+        container_labels = QWidget()
+        container_labels.setFixedWidth(self.bw)
+        container_labels.setLayout(layout_labels)
+
+        # ---- Button Container -----------------------------------------------------------------------------------
+
+        # setup layout for the buttons
+        layout_buttons = QVBoxLayout()
+        layout_buttons.setAlignment(Qt.AlignTop)
+        layout_buttons.setSpacing(0)
+        layout_buttons.setContentsMargins(0, 0, 0, 0)
+        for button in button_list:
+            layout_buttons.addWidget(button)
+
+        container_buttons = QWidget()
+        container_buttons.setFixedWidth(self.bw)
+        container_buttons.setLayout(layout_buttons)
+
+        # ---- Main Container -----------------------------------------------------------------------------------
+
+        # add components to main layout
+        layout_main = QHBoxLayout()
+        layout_main.setAlignment(Qt.AlignLeft)
+        layout_main.addWidget(container_labels)
+        layout_main.addWidget(container_buttons)
+
+        # widget to be returned
+        container_main = QWidget()
+        container_main.setLayout(layout_main)
+        return container_main
+
+    def loadSettingsMenu(self):
+        # ---- Initialize smallest components ---------------------------------------------------------------------
+        button_list = []
+        button_list.append(self.make_button('Back to Main Menu', self.switch_main, 'Returns to the Main Menu'))
+
+        # ---- Main Container -----------------------------------------------------------------------------------
+
+        # add components to main layout
+        layout_main = QHBoxLayout()
+        layout_main.setAlignment(Qt.AlignLeft)
+        for button in button_list:
+            layout_main.addWidget(button)
+
+        # widget to be returned
+        container_main = QWidget()
+        container_main.setLayout(layout_main)
+        return container_main
+
+    def loadAboutMenu(self):
+        # ---- Initialize smallest components ---------------------------------------------------------------------
+        button_list = []
+        button_list.append(self.make_button('Back to Main Menu', self.switch_main, 'Returns to the Main Menu'))
+
+        label_list = []
+        label_list.append(self.make_label(self.aboutText))
+
+        # ---- Main Container -----------------------------------------------------------------------------------
+
+        # add components to main layout
+        layout_main = QVBoxLayout()
+        layout_main.setAlignment(Qt.AlignCenter)
+        for label in label_list:
+            layout_main.addWidget(label)
+        for button in button_list:
+            layout_main.addWidget(button)
+
+        # widget to be returned
+        container_main = QWidget()
+        container_main.setLayout(layout_main)
+        return container_main
+
+    def loadControlsMenu(self):
+        # ---- Initialize smallest components ---------------------------------------------------------------------
+        button_list = []
+        button_list.append(self.make_button('Back to Commands', self.switch_commands, 'Returns to the Commands Menu'))
+
+        # currently does not update itself
+        label1 = self.make_label('Watering Interval: %d minutes' % arduinoControl.waterInterval)
+
+        button1 = self.make_button('Change Water Period', self.onClickChangeWaterInterval,
+                                   'Change the interval at which \nthis device waters plants.')
+
+        # ---- Return Container ---------------------------------------------------------------------------------
+
+        # setup layout for the buttons
+        layout_buttons = QVBoxLayout()
+        layout_buttons.setAlignment(Qt.AlignCenter)
+        layout_buttons.setSpacing(0)
+        layout_buttons.setContentsMargins(0, 0, 0, 0)
+        for button in button_list:
+            layout_buttons.addWidget(button)
+
+        container_buttons = QWidget()
+        container_buttons.setFixedWidth(self.bw)
+        container_buttons.setLayout(layout_buttons)
+
+        # ---- Action Container ---------------------------------------------------------------------------------
+
+        # setup layout for actions
+        layout_actions = QGridLayout()
+        layout_actions.setSpacing(0)
+        layout_actions.setContentsMargins(0, 0, 0, 0)
+
+        # add videos
+        layout_actions.addWidget(label1, 0, 0)
+        layout_actions.addWidget(button1, 0, 1)
+
+        # container for all video information
+        container_actions = QWidget()
+        container_actions.setLayout(layout_actions)
+
+        # ---- Main Container -----------------------------------------------------------------------------------
+
+        # add components to main layout
+        layout_main = QHBoxLayout()
+        layout_main.setAlignment(Qt.AlignLeft)
+        layout_main.addWidget(container_buttons)
+        layout_main.addWidget(container_actions)
+
+        # widget to be returned
+        container_main = QWidget()
+        container_main.setLayout(layout_main)
+        return container_main
+        
+
+#------------------------------------------------------------------------------------------------------------------
+# Button Specific Functions
 
     @pyqtSlot()
     def onClickChangeWaterInterval(self):
@@ -223,7 +329,7 @@ class Window(QWidget):
         arduinoControl.flush_read()
         #arduinoControl.water_cycle()
         arduinoControl.water()
-        if arduinoControl.no_connection() is None:
+        if not arduinoControl.is_connected():
             Display.displayWarning(self, 'Arduino was unable to initialize.')
             return
         arduinoControl.wait(1)
@@ -235,19 +341,22 @@ class Window(QWidget):
 
     @pyqtSlot()
     def onClickDetectWeeds(self):
-        imgName = '2.jpg'
-        cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
+        try:
+            imgName = '2.jpg'
+            cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
 
-        imgControl.image_grab(imgName, cameraNum)
-        imgControl.find_plants()
-        imgControl.draw_all()
-        self.log('Weed Detection')
+            imgControl.image_grab(imgName, cameraNum)
+            imgControl.find_plants()
+            imgControl.draw_all()
+            self.log('Weed Detection')
+        except Exception as e:
+            print(e)
 
     @pyqtSlot()
     def onClickPesticide(self):
         arduinoControl.make_connection()
         #arduinoControl.kill_weeds()
-        if arduinoControl.no_connection() is None:
+        if not arduinoControl.is_connected():
             Display.displayWarning(self, 'Arduino was unable to initialize.')
             return
         self.log('Pesticide')
@@ -255,12 +364,27 @@ class Window(QWidget):
 
     @pyqtSlot()
     def onClickQuit(self):
-        sys.exit(self.app.exec_())
+        super().close()
 
-##############################################################
+#------------------------------------------------------------------------------------------------------------------
 # Helper Functions
-##############################################################
 
+    def make_button(self, name, f, tip):
+        button = QPushButton(name, self)
+        button.resize(self.bw, self.bh)
+        button.clicked.connect(f)
+        button.setToolTip(tip)
+        return button
+
+    def make_label(self, text):
+        largeStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 14pt; }"
+        mediumStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 11pt; }"
+        smallStyle = "QLabel { background-color : #FBBBBB; color : #000000; font : 9pt; }"
+        label = QLabel(self)
+        label.setText(text)
+        label.setStyleSheet(smallStyle)
+        return label
+    
     def log(self, command):
         completionTime = time.strftime("%m/%d/%Y %H:%M:%S", time.localtime())
         try:
@@ -273,5 +397,11 @@ class Window(QWidget):
             file.close()
             Display.displayWarning(self, "Unable to open 'Texts/Log.txt'. Logged to 'Texts/Temp.txt'")
         self.logText += command + ' : ' + completionTime + '\n'
-        self.initLabels()
-        self.initCommandsMenu()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)    # initialize the entire application
+    ex = Window()
+    app.exec_()
+
+    print("Done!")

@@ -1,4 +1,4 @@
-Welcome to the Sustainable Earth Arduino Garden Application! 
-Our goal for this project is to creaate an efficient automated 
+Welcome to the Sustainable Earth Automated Garden Application! 
+Our goal for this project is to create an efficient automated 
 watering and weeding device to utilize in our very own garden. 
 We hope you find this useful in all of your endeavors!

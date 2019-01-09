@@ -1,21 +1,10 @@
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtGui import QPixmap
 from PIL import Image
-
-def load_background(app):
-    """Takes the background file name in the __init__ function."""
-    labelBack = QLabel(app)
-    name = resize_image(app.background, (app.width, app.height))
-    pixmap = QPixmap(name)
-    labelBack.setPixmap(pixmap)
-
 
 def get_extension_index(name):
     index = -1
     while name[index] != '.' and index > -len(name) + 1:
         index -= 1
     return index
-
 
 def resize_image(name, windowSize, imgFormat='JPEG'):
     """Downsizes image to fit parameters. Unable to stretch small images."""

@@ -12,3 +12,6 @@ Weed Detection : 01/07/2019 23:36:31
 Weed Detection : 01/07/2019 23:41:09
 Weed Detection : 01/07/2019 23:41:13
 Weed Detection : 01/07/2019 23:42:32
+Weed Detection : 01/09/2019 03:10:45
+Weed Detection : 01/09/2019 03:11:23
+Weed Detection : 01/09/2019 03:12:34
