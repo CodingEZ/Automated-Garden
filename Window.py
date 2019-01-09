@@ -7,11 +7,10 @@ from PyQt5.QtCore import pyqtSlot  # for the buttons
 from PyQt5.QtWidgets import QInputDialog, QLineEdit  # for input boxes
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QGridLayout, QStackedLayout
 from PyQt5.QtWidgets import QWidget, QMainWindow, QApplication
-from PyQt5.QtWidgets import QPushButton, QLabel
+from PyQt5.QtWidgets import QPushButton, QLabel, QMessageBox
 from PyQt5.QtGui import QImage, QPalette, QBrush
 
 import Resize
-import Display
 from Image import ImageControl
 from Arduino import ArduinoControl
 
@@ -39,7 +38,7 @@ class Window(QMainWindow):
             self.aboutText = file.read()
             file.close()
         except OSError:
-            Display.displayWarning(self, 'Failed to load "Texts/About.txt" file. Was it corrupted?')
+            self.displayWarning('Failed to load "Texts/About.txt" file. Was it corrupted?')
 
         self.logText = None
         try:
@@ -47,7 +46,7 @@ class Window(QMainWindow):
             self.logText = file.read()
             file.close()
         except OSError:
-            Display.displayWarning(self, 'Failed to load "Texts/Log.txt" file. Was it corrupted?')
+            self.displayWarning('Failed to load "Texts/Log.txt" file. Was it corrupted?')
 
         # load all menus here
         menus = []
@@ -313,11 +312,11 @@ class Window(QMainWindow):
                                     QLineEdit.Normal, arduinoControl.waterInterval)
         if okPressed:
             if num < arduinoControl.minInterval:
-                Display.displayWarning(self, 'You cannot water at intervals less than %d minutes!'
+                self.displayWarning('You cannot water at intervals less than %d minutes!'
                                        % arduinoControl.minInterval)
                 return
             elif num > arduinoControl.maxInterval:
-                Display.displayWarning(self, 'You cannot water at intervals more than %d minutes!'
+                self.displayWarning('You cannot water at intervals more than %d minutes!'
                                        % arduinoControl.maxInterval)
                 return
             arduinoControl.waterInterval = num
@@ -325,39 +324,34 @@ class Window(QMainWindow):
     @pyqtSlot()
     def onClickWater(self):
         arduinoControl.make_connection()
-        arduinoControl.ser.flushInput()
-        arduinoControl.flush_read()
         #arduinoControl.water_cycle()
-        arduinoControl.water()
         if not arduinoControl.is_connected():
-            Display.displayWarning(self, 'Arduino was unable to initialize.')
+            self.displayWarning('Arduino was unable to initialize.')
             return
+        arduinoControl.water()
         arduinoControl.wait(1)
         start = time.time()
         while time.time() - start < 2:
             message = arduinoControl.read_message()
         self.log('Water')
         arduinoControl.close_connection()
-
+            
     @pyqtSlot()
     def onClickDetectWeeds(self):
-        try:
-            imgName = '2.jpg'
-            cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
+        imgName = '2.jpg'
+        cameraNum = 0  # built-in cameraNum = 0, attached cameraNum = 1
 
-            imgControl.image_grab(imgName, cameraNum)
-            imgControl.find_plants()
-            imgControl.draw_all()
-            self.log('Weed Detection')
-        except Exception as e:
-            print(e)
+        imgControl.image_grab(imgName, cameraNum)
+        imgControl.find_plants()
+        imgControl.draw_all()
+        self.log('Weed Detection')
 
     @pyqtSlot()
     def onClickPesticide(self):
         arduinoControl.make_connection()
         #arduinoControl.kill_weeds()
         if not arduinoControl.is_connected():
-            Display.displayWarning(self, 'Arduino was unable to initialize.')
+            self.displayWarning('Arduino was unable to initialize.')
             return
         self.log('Pesticide')
         arduinoControl.close_connection()
@@ -395,8 +389,18 @@ class Window(QMainWindow):
             file = open('Texts/Temp.txt', 'a')
             file.write(command + ' : ' + completionTime + '\n')
             file.close()
-            Display.displayWarning(self, "Unable to open 'Texts/Log.txt'. Logged to 'Texts/Temp.txt'")
+            self.displayWarning("Unable to open 'Texts/Log.txt'. Logged to 'Texts/Temp.txt'")
         self.logText += command + ' : ' + completionTime + '\n'
+
+    def displayMessage(self, message):
+        QMessageBox.information(self, 'Message Display', message, QMessageBox.Ok)
+
+    def displayWarning(self, message):
+        QMessageBox.warning(self, 'Warning Display', message, QMessageBox.Ok)
+
+    def displayQuestion(self, message):
+        return QMessageBox.question(self, 'Question Display', message,
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
 
 if __name__ == '__main__':
