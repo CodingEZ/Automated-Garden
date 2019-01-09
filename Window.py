@@ -84,6 +84,9 @@ class Window(QMainWindow):
         #self.setPalette(palette)
 
         # Show the window
+
+        self.setFixedWidth(self.sw)
+        self.setFixedHeight(self.sh)
         self.show()
 
 
@@ -130,21 +133,20 @@ class Window(QMainWindow):
         
         # setup layout for the buttons
         layout_buttons = QVBoxLayout()
-        layout_buttons.setAlignment(Qt.AlignTop)
+        layout_buttons.setAlignment(Qt.AlignCenter)
         layout_buttons.setSpacing(0)
         layout_buttons.setContentsMargins(0, 0, 0, 0)
         for button in button_list:
             layout_buttons.addWidget(button)
 
         container_buttons = QWidget()
-        container_buttons.setFixedWidth(self.bw)
         container_buttons.setLayout(layout_buttons)
 
         # ---- Main Container -----------------------------------------------------------------------------------
         
         # add components to main layout
         layout_main = QHBoxLayout()
-        layout_main.setAlignment(Qt.AlignLeft)
+        layout_main.setAlignment(Qt.AlignCenter)
         layout_main.addWidget(container_buttons)
 
         # widget to be returned
@@ -168,35 +170,33 @@ class Window(QMainWindow):
         # ---- Label Container -------------------------------------------------------------------------------------
 
         layout_labels = QVBoxLayout()
-        layout_labels.setAlignment(Qt.AlignTop)
+        layout_labels.setAlignment(Qt.AlignCenter)
         layout_labels.setSpacing(0)
         layout_labels.setContentsMargins(0, 0, 0, 0)
         for label in label_list:
             layout_labels.addWidget(label)
 
         container_labels = QWidget()
-        container_labels.setFixedWidth(self.bw)
         container_labels.setLayout(layout_labels)
 
         # ---- Button Container -----------------------------------------------------------------------------------
 
         # setup layout for the buttons
         layout_buttons = QVBoxLayout()
-        layout_buttons.setAlignment(Qt.AlignTop)
+        layout_buttons.setAlignment(Qt.AlignCenter)
         layout_buttons.setSpacing(0)
         layout_buttons.setContentsMargins(0, 0, 0, 0)
         for button in button_list:
             layout_buttons.addWidget(button)
 
         container_buttons = QWidget()
-        container_buttons.setFixedWidth(self.bw)
         container_buttons.setLayout(layout_buttons)
 
         # ---- Main Container -----------------------------------------------------------------------------------
 
         # add components to main layout
         layout_main = QHBoxLayout()
-        layout_main.setAlignment(Qt.AlignLeft)
+        layout_main.setAlignment(Qt.AlignCenter)
         layout_main.addWidget(container_labels)
         layout_main.addWidget(container_buttons)
 
@@ -210,13 +210,25 @@ class Window(QMainWindow):
         button_list = []
         button_list.append(self.make_button('Back to Main Menu', self.switch_main, 'Returns to the Main Menu'))
 
+        # ---- Button Container -----------------------------------------------------------------------------------
+
+        # setup layout for the buttons
+        layout_buttons = QVBoxLayout()
+        layout_buttons.setAlignment(Qt.AlignCenter)
+        layout_buttons.setSpacing(0)
+        layout_buttons.setContentsMargins(0, 0, 0, 0)
+        for button in button_list:
+            layout_buttons.addWidget(button)
+
+        container_buttons = QWidget()
+        container_buttons.setLayout(layout_buttons)
+
         # ---- Main Container -----------------------------------------------------------------------------------
 
         # add components to main layout
         layout_main = QHBoxLayout()
-        layout_main.setAlignment(Qt.AlignLeft)
-        for button in button_list:
-            layout_main.addWidget(button)
+        layout_main.setAlignment(Qt.AlignCenter)
+        layout_main.addWidget(container_buttons)
 
         # widget to be returned
         container_main = QWidget()
@@ -268,7 +280,6 @@ class Window(QMainWindow):
             layout_buttons.addWidget(button)
 
         container_buttons = QWidget()
-        container_buttons.setFixedWidth(self.bw)
         container_buttons.setLayout(layout_buttons)
 
         # ---- Action Container ---------------------------------------------------------------------------------
@@ -289,8 +300,8 @@ class Window(QMainWindow):
         # ---- Main Container -----------------------------------------------------------------------------------
 
         # add components to main layout
-        layout_main = QHBoxLayout()
-        layout_main.setAlignment(Qt.AlignLeft)
+        layout_main = QVBoxLayout()
+        layout_main.setAlignment(Qt.AlignCenter)
         layout_main.addWidget(container_buttons)
         layout_main.addWidget(container_actions)
 
