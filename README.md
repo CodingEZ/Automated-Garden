@@ -34,7 +34,7 @@ together, and ultimately see some promising results.
 ## Arduino
 
 You can get the latest Arduino from here: https://www.arduino.cc/en/Main/Software.
-However, the Raspberry Pi we currently have runs on Arduino 1.6.
+However, the Raspberry Pi we currently have runs on Arduino 1.6+.
 
 # Getting Started
 
@@ -121,11 +121,6 @@ You can also look into OpenCV masks and contours. The OpenCV docs are here: http
 ```from Image import ImageControl``` <br />
 ```imgControl = ImageControl.Controller()``` <br />
 
-Creating a new instance of the Controller will immediately create two objects, 
-a Drawer and an Editor. The Drawer handles all drawing and outline 
-functions with opencv. The Editor creates different thresholds for image 
-processing, and calls the Grip pipeline object for filtering.
-
 ```imgControl.image_grab()``` <br />
 
 Must be called in order to initialize the image. Can use a given image in the Camera
@@ -133,9 +128,9 @@ folder or can take an image with a given camera.
 
 ```imgControl.find_plants()``` <br />
 
-Finds a plant and weeds based on default thresholds. Future edits will allow for 
-changes. Currently, the center-most object is identified as a plant, and all other 
-objects identified as weeds. 
+Finds a plant and weeds based on default thresholds, including a scale for brightness. 
+Future edits will allow for changes. Currently, the center-most object is identified as a plant, 
+and all other objects identified as weeds. 
 
 ```imgControl.draw_all()``` <br />
 
@@ -146,14 +141,10 @@ Outlines the plant in green and the weeds in blue, and displays the result.
 ```from Arduino import ArduinoControl``` <br />
 ```arduinoControl = ArduinoControl.Controller()``` <br />
 
-Creating an instance of Controller opens up serial communication with an Arduino.
-More testing will improve the consistency of the connection.
+Creating an instance of Controller opens up serial communication with an Arduino. The various
+commands to be given to the Arduino can be found in the Arduino folder.
 
 ```arduinoControl.water_cycle()``` <br />
 
 Commands such as watering are still being determined.
 
-# Future Edits
-I am continuing to add Arduino communication capabilities to allow one to implement 
-the weed detection on a Raspberry Pi. The PyQt5 interface is already implemented on 
-Raspberry Pi 3+.
