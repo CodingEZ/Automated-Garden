@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> automated garden interface!></title>
+	<style>
+		body {
+			margin:30px;
+			padding: 0px;
+			overflow:hidden;
+		}
+
+	</style>
+</head>
+
+	<body>
+		<div id="div1" style = "position: absolute; top:330px; right:50px">
+  <p id="p1">click da button to watter and den select the plot you wanna watter. </p>
+  <p id="p2">click plot again if you dont actually wanna watter dat one. :3</p>
+</div>
+
+	<script>
+		document.body.style.backgroundColor = "#35709a";
+		var water = false;
+		var weed = false;
+		var plant = false;
+
+		function doWater() {
+			water = true;
+			weed = false;
+			plant = false;
+		}
+		function doWeed() {
+			water = false;
+			weed = true;
+			plant = false;
+		}
+		function doPlant(){
+			plant = true;
+			water = false;
+			weed = false;
+		}
+	</script>
+	<div>
+
+		<canvas id="myCanvas"></canvas>
+		<button id = "water" onclick="doWater()" style="position: absolute; top:50px; right:50px;" >Water!!</button>
+		<button id = "weed" onclick="doWeed()" style="position: absolute; top:80px; right:50px;" >Weed!!</button>
+		<button id = "plant" onclick="doPlant()" style="position: absolute; top:110px; right:50px;" >Plant!!</button>
+	</div>
+	<script>
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+
+		marg = canvas.offsetLeft;
+		w = window.innerWidth - 2*marg;
+		h = window.innerHeight - 2*marg;
+
+
+		ctx.canvas.width = w + "";
+		ctx.canvas.height = h + "";
+		
+		var numCell = 10;
+		var cellLen = Math.min (w/2/numCell, h/numCell); //boxes are only on half of the screen
+
+		var isMouseClicked = false;
+
+		var selectedCell = [];
+		var waterCells = [];
+		var plantCells = [];
+		var weedCells = []
+
+		
+		//draw a grid!!!!
+		function drawHor (){
+			for (i =0; i < numCell+1; i ++){
+				ctx.moveTo (0, i*cellLen);
+				ctx.lineTo (numCell*cellLen, i*cellLen);
+				ctx.stroke();
+			}
+		}
+		function drawVert (){
+			for (i =0; i < numCell+1; i ++){
+				ctx.moveTo (i*cellLen, 0);
+				ctx.lineTo (i*cellLen, numCell*cellLen);
+				ctx.stroke();
+			}
+		}
+		function drawGrid (){
+			ctx.lineWidth = 2;
+			drawHor ();
+			drawVert ();
+		}
+
+		function getCloseGrid (x, y){
+			var cellX = Math.floor (x  / cellLen);
+			var cellY = Math.floor (y / cellLen);
+			return [cellX, cellY];
+		}
+		function arraysEqual(a, b) {
+		  if (a === b) return true;
+		  if (a == null || b == null) return false;
+		  if (a.length != b.length) return false;
+
+		  // If you don't care about the order of the elements inside
+		  // the array, you should sort both arrays here.
+		  // Please note that calling sort on an array will modify that array.
+		  // you might want to clone your array first.
+
+		  for (var i = 0; i < a.length; ++i) {
+		    if (a[i] !== b[i]) return false;
+		  }
+		  return true;
+		}
+
+		function arrayIn (list, element){
+			for (elem in list){
+				if (arraysEqual (element, list [elem])){
+					return true;
+				}
+			}
+			return false;
+		}
+		window.onmousedown = function (){
+			isMouseClicked = true;
+			if (event.clientX - 30 < numCell * cellLen && event.clientX - 30 > 0 && event.clientY - 30 < numCell * cellLen && event.clientY - 30 > 0){
+				selectedCell = (getCloseGrid (event.clientX - 30, event.clientY - 30));
+				if (water){
+					if (!arrayIn (waterCells, selectedCell)){
+						waterCells.push (selectedCell);
+					}
+					else {
+						waterCells = waterCells.filter(function(value, index, arr){
+							return !arraysEqual (value, selectedCell);
+						});
+					}
+				}
+				if (weed){
+					if (!arrayIn (weedCells, selectedCell)){
+						weedCells.push (selectedCell);
+					}
+					else {
+						weedCells = weedCells.filter(function(value, index, arr){
+							return !arraysEqual (value, selectedCell);
+						});
+					}
+				}
+				if (plant){
+					console.log (plantCells);
+					// console.log (arrayIn (plantCells, selectedCell));
+					// console.log (selectedCell);
+					if (!arrayIn (plantCells, selectedCell)) {
+						plantCells.push (selectedCell);
+						console.log (99999);
+					}
+					else {
+						plantCells = plantCells.filter(function(value, index, arr){
+							return !arraysEqual (value, selectedCell);
+							console.log ("deletin");
+						});
+					}
+				}
+			}
+			redraw();
+		}
+
+		window.onmousemove = function () {
+			if (isMouseClicked) {
+				if (event.clientX - 30 < numCell * cellLen && event.clientX - 30 > 0 && event.clientY - 30 < numCell * cellLen && event.clientY - 30 > 0){
+				selectedCell = (getCloseGrid (event.clientX - 30, event.clientY - 30));
+				if (water){
+					if (!arrayIn (waterCells, selectedCell)){
+						waterCells.push (selectedCell);
+					}
+					else {
+						waterCells = waterCells.filter(function(value, index, arr){
+							return !arraysEqual (value, selectedCell);
+						});
+					}
+				}
+				if (weed){
+					if (!arrayIn (weedCells, selectedCell)){
+						weedCells.push (selectedCell);
+					}
+					else {
+						weedCells = weedCells.filter(function(value, index, arr){
+							return !arraysEqual (value, selectedCell);
+						});
+					}
+				}
+				if (plant){
+					console.log (plantCells);
+					// console.log (arrayIn (plantCells, selectedCell));
+					// console.log (selectedCell);
+					if (!arrayIn (plantCells, selectedCell)) {
+						plantCells.push (selectedCell);
+						console.log (99999);
+					}
+					else {
+						plantCells = plantCells.filter(function(value, index, arr){
+							return !arraysEqual (value, selectedCell);
+						});
+					}
+				}
+			}
+			redraw();
+			}
+		}
+		window.onmouseup = function (){
+			isMouseClicked = false;
+		}
+		window.onresize = function (){
+			w = window.innerWidth - 2*marg;
+			h = window.innerHeight - 2*marg;
+			canvas.height = window.innerHeight;
+			canvas.width = window.innerWidth;
+			cellLen = Math.min (w/2/numCell, h/numCell);
+			redraw();
+		}
+
+		function drawSelected (){
+			ctx.strokeStyle = "#cc00ff";
+			ctx.lineWidth = 5;
+			ctx.beginPath();
+			ctx.rect (selectedCell[0]*cellLen, selectedCell[1]*cellLen, cellLen, cellLen);
+			ctx.stroke();
+			ctx.strokeStyle = "#000000"
+			ctx.lineWidth = 2;
+		}
+		function drawPlantCells (){
+			ctx.lineWidth = 0;
+			ctx.fillStyle = "#4dff4d";
+			for (cell in plantCells){
+				ctx.beginPath();
+				ctx.rect (plantCells[cell][0]*cellLen, plantCells[cell][1]*cellLen, cellLen/3, cellLen);
+				ctx.stroke();
+				ctx.fill();
+			}
+			ctx.fillStyle = "#000000"
+			ctx.lineWidth = 2;
+		}
+
+		function drawWeedCells (){
+			ctx.lineWidth = 0;
+			ctx.fillStyle = "#ff0000";
+			for (cell in weedCells){
+				ctx.beginPath();
+				ctx.rect (weedCells[cell][0]*cellLen + cellLen/3, weedCells[cell][1]*cellLen, cellLen/3, cellLen);
+				ctx.stroke();
+				ctx.fill();
+			}
+			ctx.fillStyle = "#000000"
+			ctx.lineWidth = 2;
+		}
+
+		function drawWaterCells (){
+			ctx.lineWidth = 0;
+			ctx.fillStyle = "#6666ff";
+			for (cell in waterCells){
+				ctx.beginPath();
+				ctx.rect (waterCells[cell][0]*cellLen + 2/3*cellLen, waterCells[cell][1]*cellLen, cellLen/3, cellLen);
+				ctx.stroke();
+				ctx.fill();
+			}
+			ctx.fillStyle = "#000000"
+			ctx.lineWidth = 2;
+		}
+
+		function redraw (){
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			drawGrid ();
+			drawSelected();
+			drawPlantCells();
+			drawWeedCells();
+			drawWaterCells();
+		}
+
+		function main (){
+			redraw();
+		}
+		
+		main();
+	</script>
+
+</body>
+
+
+</html>
