@@ -62,7 +62,6 @@
 		var numCell = 10;
 		var cellLen = Math.min (w/2/numCell, h/numCell); //boxes are only on half of the screen
 
-		var isMouseClicked = false;
 
 		var selectedCell = [];
 		var waterCells = [];
@@ -121,7 +120,6 @@
 			return false;
 		}
 		window.onmousedown = function (){
-			isMouseClicked = true;
 			if (event.clientX - 30 < numCell * cellLen && event.clientX - 30 > 0 && event.clientY - 30 < numCell * cellLen && event.clientY - 30 > 0){
 				selectedCell = (getCloseGrid (event.clientX - 30, event.clientY - 30));
 				if (water){
@@ -163,51 +161,7 @@
 			redraw();
 		}
 
-		window.onmousemove = function () {
-			if (isMouseClicked) {
-				if (event.clientX - 30 < numCell * cellLen && event.clientX - 30 > 0 && event.clientY - 30 < numCell * cellLen && event.clientY - 30 > 0){
-				selectedCell = (getCloseGrid (event.clientX - 30, event.clientY - 30));
-				if (water){
-					if (!arrayIn (waterCells, selectedCell)){
-						waterCells.push (selectedCell);
-					}
-					else {
-						waterCells = waterCells.filter(function(value, index, arr){
-							return !arraysEqual (value, selectedCell);
-						});
-					}
-				}
-				if (weed){
-					if (!arrayIn (weedCells, selectedCell)){
-						weedCells.push (selectedCell);
-					}
-					else {
-						weedCells = weedCells.filter(function(value, index, arr){
-							return !arraysEqual (value, selectedCell);
-						});
-					}
-				}
-				if (plant){
-					console.log (plantCells);
-					// console.log (arrayIn (plantCells, selectedCell));
-					// console.log (selectedCell);
-					if (!arrayIn (plantCells, selectedCell)) {
-						plantCells.push (selectedCell);
-						console.log (99999);
-					}
-					else {
-						plantCells = plantCells.filter(function(value, index, arr){
-							return !arraysEqual (value, selectedCell);
-						});
-					}
-				}
-			}
-			redraw();
-			}
-		}
-		window.onmouseup = function (){
-			isMouseClicked = false;
-		}
+		
 		window.onresize = function (){
 			w = window.innerWidth - 2*marg;
 			h = window.innerHeight - 2*marg;
