@@ -39,6 +39,11 @@
 			water = false;
 			weed = false;
 		}
+		function doNothing(){
+			plant = false;
+			water = false;
+			weed = false;
+		}
 	</script>
 	<div>
 
@@ -46,6 +51,7 @@
 		<button id = "water" onclick="doWater()" style="position: absolute; top:50px; right:50px;" >Water!!</button>
 		<button id = "weed" onclick="doWeed()" style="position: absolute; top:80px; right:50px;" >Weed!!</button>
 		<button id = "plant" onclick="doPlant()" style="position: absolute; top:110px; right:50px;" >Plant!!</button>
+		<button id = "deselect" onclick="doNothing()" style = "position:absolute; top:140px; right:50px;">Clear Action</button>
 	</div>
 	<div id = "dataWindow" style="background-color: lightgray; position: absolute; bottom:0px; right:0px; width:50%; height:50%;">
 	</div>
@@ -160,10 +166,11 @@
 						});
 					}
 				}
-				data.innerHTML = selectedCell + "<br>data"
+				data.innerHTML = "Garden Plot (" + selectedCell + ")<br>data goes here";
 			}
 			redraw();
 		}
+		
 
 		
 		window.onresize = function (){
