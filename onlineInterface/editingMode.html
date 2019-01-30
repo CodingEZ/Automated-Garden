@@ -47,9 +47,12 @@
 		<button id = "weed" onclick="doWeed()" style="position: absolute; top:80px; right:50px;" >Weed!!</button>
 		<button id = "plant" onclick="doPlant()" style="position: absolute; top:110px; right:50px;" >Plant!!</button>
 	</div>
+	<div id = "dataWindow" style="background-color: lightgray; position: absolute; bottom:0px; right:0px; width:50%; height:50%;">
+	</div>
 	<script>
 		var canvas = document.getElementById("myCanvas");
 		var ctx = canvas.getContext("2d");
+		var data = document.getElementById("dataWindow");
 
 		marg = canvas.offsetLeft;
 		w = window.innerWidth - 2*marg;
@@ -157,6 +160,7 @@
 						});
 					}
 				}
+				data.innerHTML = selectedCell + "<br>data"
 			}
 			redraw();
 		}
