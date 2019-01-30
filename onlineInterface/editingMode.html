@@ -53,7 +53,7 @@
 		<button id = "plant" onclick="doPlant()" style="position: absolute; top:110px; right:50px;" >Plant!!</button>
 		<button id = "deselect" onclick="doNothing()" style = "position:absolute; top:140px; right:50px;">Clear Action</button>
 	</div>
-	<div id = "dataWindow" style="background-color: lightgray; position: absolute; bottom:0px; right:0px; width:50%; height:50%;">
+	<div id = "dataWindow" style="background-color: lightgray; position: absolute; bottom:0px; right:0px; width:25%; height:50%; font-size: 32px">
 	</div>
 	<script>
 		var canvas = document.getElementById("myCanvas");
@@ -166,7 +166,7 @@
 						});
 					}
 				}
-				data.innerHTML = "Garden Plot (" + selectedCell + ")<br>data goes here";
+				data.innerHTML = "Garden Plot (" + selectedCell + ")<br>Plant: (Plant type)<br>Planted on: Jan 1, 2000<br>Last watered: Jan 20, 2019<br>";
 			}
 			redraw();
 		}
