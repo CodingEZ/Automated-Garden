@@ -83,34 +83,36 @@ void setup() {
   digitalWrite(Z_ENABLE_PIN    , LOW);
   digitalWrite(E_ENABLE_PIN    , LOW);
   digitalWrite(Q_ENABLE_PIN    , LOW);
+
+  int pin_curr_dir = X_DIR_PIN;
+  int pin_curr_limit = X_MAX_PIN;   // start forward
+  int pin_next_limit = X_MIN_PIN;
+  int pin_curr_step = X_STEP_PIN;
 }
 
+// Currently just moves from one end to the other continuously
 void loop() {
-  //loop() runs again and again
-  limit_switch_hit(X_pins, X_limit_switch_result);
-  if (!X_limit_switch_result[0]) {
-  
-  } else if (X_limit_switch_result[1] {
-    move_backward(X_DIR_PIN, X_STEP_PIN);
-    delay(1000);
+  int curr_dir = digitalRead(pin_curr_dir);
+  if (limit_hit(pin_curr_limit)) {
+    // switch limit pins
+    int hold = pin_curr_limit;
+    int pin_curr_limit = pin_next_limit;
+    int pin_next_limit = hold;
+    if (!curr_dir) {
+      move_forward(pin_curr_dir, pin_curr_step);
+    } else {
+      move_backward(pin_curr_dir, pin_curr_step);
+    }
   } else {
-    move_forward(X_DIR_PIN, X_STEP_PIN);
-    delay(1000);
+    if (curr_dir) {
+      move_forward(pin_curr_dir, pin_curr_step);
+    } else {
+      move_backward(pin_curr_dir, pin_curr_step);
+    }
   }
 }
 
-// to run your functions, call it in loop()
-// task 1 (distance measuring): write a function that switches the motor direction whenever you connect the limit switch (like in the garden),
-    // and print out the number of ticks between this click and the previous click
-// task 2 (E-stop): copy the function you created in task 2, and use another pin for disabling the motor.
-// task 3 (multi-axis control): write a function that switches between driving two motors each time you connect the limit switch. Make sure e-stop is enabled.
-// task 4 (synchronized control): write a function that turns two steppers at the same time, and be able to switch direction at the same time
-    // Set delay time to 2000. Make sure e-stop is enabled.
-
-//Useful Tips:
-// 1. basic forward and reverse motion control:
-
-void print_signal(int pin){
+void print_signal(int pin) {
   int signal = digitalRead(pin);
   Serial.println(signal);
 }
@@ -148,14 +150,27 @@ void disable(int enable_pin) {
   digitalWrite(enable_pin, HIGH);
 }
 
-void task1() {
+int measure_distance(dir_pin, pin_curr_limit, pin_next_limit, step_pin) {
+  digitalWrite(dir_pin, HIGH); // Enables the motor to move in forward direction
+  while (!limit_hit(limit_pin)) {
+    digitalWrite(step_pin, HIGH);
+  }
+
+  // switch limit pins
+  int hold = pin_curr_limit;
+  int pin_curr_limit = pin_next_limit;
+  int pin_next_limit = hold;
+
+  int count = 0;
+  while (!limit_hit(limit_pin)) {
+    digitalWrite(step_pin, HIGH);
+    count++;
+  }
+
+  return count;
 }
 
-void task2() {
-}
 
-void task3() {
-}
 
 void task4(char motor, int ticks, int delay_time) {
   int MIN_PIN;
