@@ -169,26 +169,3 @@ int measure_distance(dir_pin, pin_curr_limit, pin_next_limit, step_pin) {
 
   return count;
 }
-
-
-
-void task4(char motor, int ticks, int delay_time) {
-  int MIN_PIN;
-  int MAX_PIN;
-  int STEP_PIN;
-  int DIR_PIN;
-  int ENABLE_PIN;
-  switch (motor) {
-    //complete this section by assigning pin numbers
-    case 'X':
-      break;
-    case 'Y':
-      break;
-    case 'Z':
-      break;
-    case 'Q':
-      break;
-    case 'E':
-      break;
-  }
-}

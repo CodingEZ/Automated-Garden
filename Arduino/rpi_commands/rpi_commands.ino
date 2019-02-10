@@ -52,7 +52,23 @@ void write_response() {
 
 void arduino_move() {
   delay(1000);
-  // will add in later
+  switch (command[1]) {
+    case 'l':
+      move_backward(X_DIR_PIN, X_STEP_PIN);
+      break;
+    case 'r':
+      move_forward(X_DIR_PIN, X_STEP_PIN);
+      break;
+    case 'd':
+      move_backward(Y_DIR_PIN, Y_STEP_PIN);
+      break;
+    case 'u':
+      move_forward(Y_DIR_PIN, Y_STEP_PIN);
+      break;
+    default:
+      // put an error message
+      return;
+  }
   
   char result[] = {'4', 'm', 'o', 'v', 'e'};
   for (int i = 0; i < sizeof(result); i++) {
@@ -69,4 +85,3 @@ void arduino_water() {
     response[i] = result[i];
   }
 }
-
