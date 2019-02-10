@@ -51,7 +51,34 @@
 		<button id = "water" onclick="doWater()" style="position: absolute; top:50px; right:50px;" >Water!!</button>
 		<button id = "weed" onclick="doWeed()" style="position: absolute; top:80px; right:50px;" >Weed!!</button>
 		<button id = "plant" onclick="doPlant()" style="position: absolute; top:110px; right:50px;" >Plant!!</button>
-		<button id = "deselect" onclick="doNothing()" style = "position:absolute; top:140px; right:50px;">Clear Action</button>
+		<button id = "deselect" onclick="doNothing()" style = "position:absolute; top:170px; right:50px;">Clear Action</button>
+
+		<style>
+		.dropdown {
+  			position: absolute; top:140px; right:50px;
+  			display: inline-block;
+		}
+
+		.dropdown-content {
+  			display: none;
+  			position: absolute;
+  			z-index: 1;
+		}
+
+		.dropdown:hover .dropdown-content {display: block;}
+		</style>
+
+		<div class="dropdown">
+  			<button id = "plant"  >Plant</button>
+  			<div class="dropdown-content">
+    			<a href="#">Link 1</a>
+    			<a href="#">Link 2</a>
+    			<a href="#">Link 3</a>
+  			</div>
+		</div>
+
+
+
 	</div>
 	<div id = "dataWindow" style="background-color: lightgray; position: absolute; bottom:0px; right:0px; width:25%; height:50%; font-size: 32px">
 	</div>
