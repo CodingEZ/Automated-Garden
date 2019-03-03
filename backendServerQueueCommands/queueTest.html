@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>testing queue!</title>
+</head>
+
+<body>
+	<script type="text/javascript">
+		class Queue{
+			constructor (){
+				this.items =[];
+			}
+
+			enqueue(elem){
+				this.items.push (elem);
+			}
+			//deletes first item of the queue ie the one that was just about to go out
+			//not user friendly because if you mess up and put something you don't want in the queue then you have to delete every command that you had put in before or wait for the bad command to get to the front of the queue.
+			dequeue (){
+				if (this.isEmpty()){
+					return "underflow"
+				}
+				return this.items.shift ();
+			}
+
+			front (){
+				if (this.isEmpty){
+					return "No elems in queue";
+				}
+				return this.items [0];
+			}
+
+			isEmpty (){
+				return this.items.length == 0;
+			}
+
+			printQueue () {
+				var str = "";
+				for (var i = 0; i < this.items.length; i ++ ){
+					str += this.items [i] + " ";
+				}
+				return (str);
+			}
+		}
+
+		var queue = new Queue ();
+		console.log (queue.printQueue());
+		queue.enqueue ("hi");
+		console.log (queue.printQueue());
+		queue.enqueue (21);
+		queue.dequeue ();
+		console.log (queue.printQueue());
+
+
+		
+		
+	</script>
+
+</body>
+
+</html>
+
